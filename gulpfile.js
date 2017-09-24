@@ -2,14 +2,13 @@ const gulp = require('gulp');
 const webpack = require('webpack');
 const nodemon = require('nodemon');
 const path = require('path');
+let config = null;
 
 if(process.env.NODE_ENV !== 'production'){
-  console.log("devvv");
+  config = require('./webpack.dev.js');
 } else {
-  console.log("proddd");
+  config = require('./webpack.prod.js');
 }
-
-const webpackDevConfig = require('./webpack.dev.js');
 
 function onBuild(done){
   return function(err, stats){
@@ -25,11 +24,11 @@ function onBuild(done){
 }
 
 gulp.task('build', function(done){
-  webpack(webpackDevConfig).run(onBuild(done));
+  webpack(config).run(onBuild(done));
 });
 
 gulp.task('watch', function(){
-  webpack(webpackDevConfig).watch(100, function(err, stats){
+  webpack(config).watch(100, function(err, stats){
     onBuild()(err, stats);
     nodemon.restart();
   });
