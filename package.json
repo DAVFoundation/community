@@ -2,14 +2,14 @@
   "name": "community-server",
   "version": "0.1.0",
   "description": "",
+  "license": "MIT",
+  "author": "Abhishek Singh <abhishek@shek.it>",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./node_modules/.bin/gulp build",
-    "start": "./node_modules/.bin/gulp run"
+    "start": "./node_modules/.bin/gulp run",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Abhishek Singh <abhishek@shek.it>",
-  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.15.4",
