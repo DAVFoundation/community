@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  community-server:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - '3000:3000'
+    networks:
+      - dav
+    links:
+      - mongo:mongo
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'
+    networks:
+      - dav
+
+networks:
+  dav:
+    external: true
+
