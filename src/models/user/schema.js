@@ -33,10 +33,6 @@ const userSchema = new Schema({
       type: Date
     }
   }],
-  stations:[{
-    type: Schema.Types.ObjectId,
-    ref: 'Station'
-  }],
   following: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
@@ -45,10 +41,16 @@ const userSchema = new Schema({
 
 UserSchema.plugin(timestamp);
 
+UserSchema.virtual('stations', {
+  ref: 'Station',
+  localField: '_id',
+  foreignField: 'owner'
+});
+
 userSchema.pre('save', (next) => {
   const saltRounds = 10
 
-  if(!this.isNew){
+  if(this.isNew){
     this.uid = randomDavAddress();
   }
 
