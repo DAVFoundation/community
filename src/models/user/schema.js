@@ -24,6 +24,19 @@ const userSchema = new Schema({
     type: String,
     required:true
   },
+  badges:[{
+    badge:{
+      type: Schema.Types.ObjectId,
+      ref: 'Badge'
+    },
+    awardedOn:{
+      type: Date
+    }
+  }],
+  stations:[{
+    type: Schema.Types.ObjectId,
+    ref: 'Station'
+  }],
   following: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
