@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import timestamp from 'mongoose-timestamp';
+import {randomDavAddress} from '../../lib/utils';
 
 const Schema = mongoose.Schema;
 
@@ -8,6 +10,9 @@ const userSchema = new Schema({
     type:String,
     required:true,
     trim:true
+  },
+  uid: {
+    type:String
   },
   email: {
     type: String,
@@ -25,8 +30,15 @@ const userSchema = new Schema({
   }]
 });
 
+UserSchema.plugin(timestamp);
+
 userSchema.pre('save', (next) => {
   const saltRounds = 10
+
+  if(!this.isNew){
+    this.uid = randomDavAddress();
+  }
+
   bcrypt.hash(this.password, saltRounds, (err, hash) => {
     if(err) return next(err);
     this.password = hash;
