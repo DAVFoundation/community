@@ -17,6 +17,7 @@
     "express": "^4.15.4",
     "mongoose": "^4.11.12",
     "mongoose-timestamp": "^0.6.0",
+    "mongoose-url-slugs": "^1.0.2",
     "randomstring": "^1.1.5"
   },
   "devDependencies": {
