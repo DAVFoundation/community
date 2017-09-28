@@ -13,7 +13,7 @@ export const signup = (req, res) => {
 
 const saveUser = async (res) => {
   let user = {
-    name: "Ann Arbor",
+    name: "Tennis",
     email: "a@7.com",
     password: "test"
   };

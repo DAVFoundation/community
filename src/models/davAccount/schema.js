@@ -22,10 +22,10 @@ davAccountSchema.virtual('updates',{
 davAccountSchema.pre('save', function(next){
   console.log("pre save on dav account");
   next();
-})
+});
 
 davAccountSchema.post('save', function(doc){
   console.log("post save on dav account");
-})
+});
 
 export default davAccountSchema;
