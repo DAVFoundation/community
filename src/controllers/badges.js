@@ -1,3 +1,5 @@
+import Badge from '../models/badge/model';
+
 export const list = (req, res) => {
   //res.send("get badge list");
   console.log("get badge list");
@@ -20,6 +22,16 @@ export const list = (req, res) => {
 
 export const create = (req, res) => {
   //res.send("create a badge");
-  console.log("create badge");
-  res.send("badge created");
+  let badgeDetails = {
+    title: req.body.title,
+    image: req.body.image
+  };
+  console.log(badgeDetails);
+  Badge.create(badgeDetails)
+    .then(doc => {
+      res.json(doc);
+    })
+    .catch(err => {
+      res.send(err);
+    });
 };
