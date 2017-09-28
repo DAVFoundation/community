@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
+//import bcrypt from 'bcrypt';
 import timestamp from 'mongoose-timestamp';
-import {randomDavAddress} from '../../lib/utils';
+import {randomDavAddress, awardBadge, createUpdate, createDavAccount} from '../../lib/utils';
 
 const Schema = mongoose.Schema;
 
@@ -17,7 +17,7 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
+    //unique: true,
     trim: true
   },
   password: {
@@ -39,33 +39,36 @@ const userSchema = new Schema({
   }]
 });
 
-UserSchema.plugin(timestamp);
+userSchema.plugin(timestamp);
 
-UserSchema.virtual('stations', {
+userSchema.virtual('stations', {
   ref: 'Station',
   localField: '_id',
   foreignField: 'owner'
 });
 
-userSchema.pre('save', (next) => {
-  const saltRounds = 10
+userSchema.pre('save', function(next){
+  //const saltRounds = 10;
+  console.log("Pre save user hook");
+  this.wasNew = this.isNew;
 
   if(this.isNew){
+    console.log("this is a new user");
     this.uid = randomDavAddress();
   }
-
-  bcrypt.hash(this.password, saltRounds, (err, hash) => {
+  next();
+  /*bcrypt.hash(this.password, saltRounds, (err, hash) => {
     if(err) return next(err);
     this.password = hash;
     next();
-  })
-})
+  });*/
+});
 
-userSchema.methods.comparePassword = (candidatePassword, cb) => {
+/*userSchema.methods.comparePassword = (candidatePassword, cb) => {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
     if(err) return cb(err);
     cb(null, isMatch);
-  })
-}
+  });
+};*/
 
 export default userSchema;

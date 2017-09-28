@@ -21,4 +21,13 @@ const updateSchema = new Schema({
 
 updateSchema.plugin(timestamp);
 
+updateSchema.pre('save', function(next){
+  console.log("pre hook on update");
+  next();
+});
+
+updateSchema.post('save', function(doc){
+  console.log("post hook on update");
+});
+
 export default updateSchema;

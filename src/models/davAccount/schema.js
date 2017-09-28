@@ -17,6 +17,15 @@ davAccountSchema.virtual('updates',{
   ref: 'Update',
   localField: '_id',
   foreignField: 'davAccount'
+});
+
+davAccountSchema.pre('save', function(next){
+  console.log("pre save on dav account");
+  next();
+})
+
+davAccountSchema.post('save', function(doc){
+  console.log("post save on dav account");
 })
 
 export default davAccountSchema;
