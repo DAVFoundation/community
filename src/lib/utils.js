@@ -26,4 +26,15 @@ export const awardBadge = async (user, badgeSlug) => {
   // add update about badge add to user
 };
 
+export const createUpdate = async (user, update) => {
+
+  let account = await DavAccount.findOne({uid:user.uid});
+
+  let updateDetails = Object.assign({},update);
+  updateDetails.davAccount = account._id;
+  console.log(`${user.name} has a new update: ${update.description}`);
+  return await Update.create(updateDetails);
+  // uses user.uid to find davaccount with same uid and adds that to itself
+};
+
 
