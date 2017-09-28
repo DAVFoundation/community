@@ -8,7 +8,7 @@ const stationSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   }
-})
+});
 
 stationSchema.plugin(timestamp);
 

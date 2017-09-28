@@ -15,7 +15,7 @@ const badgeSchema = new Schema({
     required:true,
     trim:true
   }
-})
+});
 
 badgeSchema.plugin(slugify('title'));
 badgeSchema.plugin(timestamp);
