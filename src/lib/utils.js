@@ -46,4 +46,10 @@ export const createDavAccount = async (owner) => {
   return await DavAccount.create(account);
 };
 
+export const followUser = async (user, followee) => {
 
+  let followeeUser = await User.findOne({uid:followee.uid}).exec();
+  console.log("following dav account");
+  return await User.findByIdAndUpdate(user._id, {$push:{following:followeeUser._id}}).exec();
+
+};
