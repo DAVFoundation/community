@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-//import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt-nodejs';
 import timestamp from 'mongoose-timestamp';
 import {randomDavAddress, awardBadge, createUpdate, createDavAccount} from '../../lib/utils';
 
@@ -56,19 +56,24 @@ userSchema.pre('save', function(next){
     console.log("this is a new user");
     this.uid = randomDavAddress();
   }
-  next();
-  /*bcrypt.hash(this.password, saltRounds, (err, hash) => {
+  //next();
+  bcrypt.genSalt(5, (err,salt) => {
     if(err) return next(err);
-    this.password = hash;
-    next();
-  });*/
+    bcrypt.hash(this.password, salt, null, (err, hash) => {
+      if(err) return next(err);
+      this.password = hash;
+      console.log(this.password);
+      next();
+    });
+  });
+
 });
 
-/*userSchema.methods.comparePassword = (candidatePassword, cb) => {
+userSchema.methods.comparePassword = (candidatePassword, cb) => {
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
     if(err) return cb(err);
     cb(null, isMatch);
   });
-};*/
+};
 
 export default userSchema;
