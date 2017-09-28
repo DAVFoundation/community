@@ -37,4 +37,13 @@ export const createUpdate = async (user, update) => {
   // uses user.uid to find davaccount with same uid and adds that to itself
 };
 
+export const createDavAccount = async (owner) => {
+
+  let account = {
+    uid: owner.uid
+  };
+  console.log("creating linked Dav Account");
+  return await DavAccount.create(account);
+};
+
 
