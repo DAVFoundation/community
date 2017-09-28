@@ -15,16 +15,19 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.15.4",
+    "express-session": "^1.15.6",
     "mongoose": "^4.11.12",
     "mongoose-timestamp": "^0.6.0",
     "mongoose-url-slugs": "^1.0.2",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "randomstring": "^1.1.5"
+    "randomstring": "^1.1.5",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "eslint": "^4.7.2",
     "eslint-loader": "^1.9.0",

@@ -15,8 +15,14 @@ module.exports = merge(common, {
 
     new webpack.BannerPlugin({
       banner:'require("source-map-support").install();',
-      raw:true, 
+      raw:true,
       entryOnly: false
+    }),
+
+    new webpack.BannerPlugin({
+      banner:'require("babel-polyfill");',
+      raw:true,
+      entryOnly:false
     })
   ]
 })
