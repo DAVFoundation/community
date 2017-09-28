@@ -13,13 +13,16 @@ export function randomDavAddress(){
 }
 
 export const awardBadge = async (user, badgeSlug) => {
-  console.log(`${user.name} is awarded ${badgeSlug} badge`);
 
   let badge = await Badge.findOne({slug:badgeSlug}).exec();
 
-  let owner = await User.findOneAndUpdate({id:user._id}, {$push:{badges:badge._id}}).exec();
+  //console.log(badge);
 
-  createUpdate(owner,{
+  let owner = await User.findByIdAndUpdate(user._id, {$push:{badges:badge._id}}, {new:true}).exec();
+
+  //console.log(owner);
+
+  return createUpdate(owner,{
     description: `${owner.name} was awarded the ${badge.title} badge`
   });
   // add badge to user
@@ -28,28 +31,33 @@ export const awardBadge = async (user, badgeSlug) => {
 
 export const createUpdate = async (user, update) => {
 
-  let account = await DavAccount.findOne({uid:user.uid});
-
+  let account = await DavAccount.findOne({uid:user.uid}).exec();
+  console.log(account);
   let updateDetails = Object.assign({},update);
   updateDetails.davAccount = account._id;
-  console.log(`${user.name} has a new update: ${update.description}`);
-  return await Update.create(updateDetails);
+  console.log(`${update.description}`);
+  return Update.create(updateDetails);
   // uses user.uid to find davaccount with same uid and adds that to itself
 };
 
-export const createDavAccount = async (owner) => {
+export const createDavAccount = (owner) => {
 
   let account = {
     uid: owner.uid
   };
-  console.log("creating linked Dav Account");
-  return await DavAccount.create(account);
+
+  return DavAccount.create(account);
 };
 
 export const followUser = async (user, followee) => {
 
   let followeeUser = await User.findOne({uid:followee.uid}).exec();
+
+  await createUpdate(user,{
+    description: `${user.name} started following ${followeeUser.name}`
+  });
+
   console.log("following dav account");
-  return await User.findByIdAndUpdate(user._id, {$push:{following:followeeUser._id}}).exec();
+  return User.findByIdAndUpdate(user._id, {$push:{following:followeeUser._id}}, {new:true}).exec();
 
 };
