@@ -7,12 +7,7 @@ import authRoutes from './routes/auth';
 import passport from 'passport';
 import session from 'express-session';
 import uuid from 'uuid';
-
-if(process.env.NODE_ENV !== 'production'){
-  var config = require('./config/config.dev.js');
-} else {
-  var config = require('./config/config.js');
-}
+import config from './config';
 
 const app = express();
 
