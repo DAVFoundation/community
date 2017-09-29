@@ -1,4 +1,5 @@
 import Person from '../models/person/model';
+import local from './local';
 
 export default init = (passport) => {
 
@@ -11,4 +12,6 @@ export default init = (passport) => {
   });
 
   // load strategies
+  local(passport);
+
 }
