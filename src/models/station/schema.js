@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const stationSchema = new Schema({
   owner:{
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'Person'
   }
 });
 
