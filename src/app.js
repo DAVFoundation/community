@@ -8,12 +8,10 @@ import passport from 'passport';
 import session from 'express-session';
 import uuid from 'uuid';
 
-let config = null;
-
 if(process.env.NODE_ENV !== 'production'){
-  config = require('./config/config.dev.js');
+  var config = require('./config/config.dev.js');
 } else {
-  config = require('./config/config.js');
+  var config = require('./config/config.js');
 }
 
 const app = express();
@@ -28,7 +26,7 @@ app.use(session({
   genid: (req) => {
     return uuid.v4();
   },
-  secret: "lalala",
+  secret: config.session.secret,
   resave: false,
   saveUnitialized: true
 }));

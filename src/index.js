@@ -1,10 +1,17 @@
+global.globalDavUid = null;
+
 import app from './app';
 import mongoose from 'mongoose';
 import {createMainDavAccount} from './lib/utils';
 
+if(process.env.NODE_ENV !== 'production'){
+  var config = require('./config/config.dev.js');
+} else {
+  var config = require('./config/config.js');
+}
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://mongo:27017')
+mongoose.connect(config.mongo.url)
   .then(() => {
     console.log('connected to DB');
     createMainDavAccount();

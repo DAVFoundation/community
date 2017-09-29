@@ -3,7 +3,12 @@ import DavAccount from '../models/davAccount/model';
 import Update from '../models/update/model';
 import Badge from '../models/badge/model';
 import User from '../models/user/model';
-global.globalDavUid = null;
+
+if(process.env.NODE_ENV !== 'production'){
+  var config = require('../config/config.dev.js');
+} else {
+  var config = require('../config/config.js');
+}
 
 export const randomDavAddress = () => {
   console.log("Random DAV address generated");
@@ -88,9 +93,9 @@ export const createUser = (account, obj) => {
 
 export const createMainDavAccount = async () => {
   let user = {
-    name:"DAVAccount",
-    email:"dav@davnetwork.com",
-    password:"davnetwork"
+    name:config.dav.name,
+    email:config.dav.email,
+    password:config.dav.password
   };
 
   let existingUser = await User.findOne({email: user.email}).exec();
