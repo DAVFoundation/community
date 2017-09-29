@@ -1,12 +1,13 @@
 import mongoose from 'mongoose';
 import timestamp from 'mongoose-timestamp';
+import {randomDavAddress} from '../../lib/utils';
+
 
 const Schema = mongoose.Schema;
 
 const davAccountSchema = new Schema({
   uid:{
     type:String,
-    required:true,
     trim:true
   }
 });
@@ -21,6 +22,10 @@ davAccountSchema.virtual('updates',{
 
 davAccountSchema.pre('save', function(next){
   console.log("pre save on dav account");
+  if(this.isNew){
+    console.log("this is a new dav account");
+    this.uid = randomDavAddress();
+  }
   next();
 });
 
