@@ -3,14 +3,43 @@ import DavAccount from '../models/davAccount/model';
 import Update from '../models/update/model';
 import Badge from '../models/badge/model';
 import User from '../models/user/model';
+global.globalDavUid = null;
 
-export function randomDavAddress(){
+export const randomDavAddress = () => {
   console.log("Random DAV address generated");
   return '0x'+randomstring.generate({
     length: 40,
     charset: 'hex'
   });
-}
+};
+
+export const savePerson = async (obj, isAdmin=false) => {
+
+  let account = await createDavAccount();
+  console.log(account);
+  console.log("dav account created");
+
+  let person = await createUser(account, obj);
+  console.log("user created");
+
+  await createUpdate(person,{
+    description: `${person.name} has joined DAV`
+  });
+  console.log("update created");
+
+  let cutoff = new Date("2017-12-31");
+  if(person.createdAt<=cutoff){
+    console.log("he is a founder");
+    await awardBadge(person,"founder");
+    console.log("founder badge added");
+  }
+
+  return followUser(person, {uid:globalDavUid}, isAdmin);
+  //let updatedUser = await User.findById(newuser._id).exec();
+  //console.log("started following main account");
+  //res.json(updatedUser);
+
+};
 
 export const awardBadge = async (user, badgeSlug) => {
 
@@ -42,30 +71,58 @@ export const createUpdate = async (user, update) => {
 
 export const createDavAccount = () => {
 
-  return DavAccount.create(account);
+  return DavAccount.create({});
 };
 
-export const createUser = (account, req) => {
+export const createUser = (account, obj) => {
 
   let user = {
-    name: "Tennis",
-    email: "a@7.com",
-    password: "test",
+    name: obj.name,
+    email: obj.email,
+    password: obj.password,
     uid: account.uid
   };
 
   return User.create(user);
-}
+};
 
-export const followUser = async (user, followee) => {
+export const createMainDavAccount = async () => {
+  let user = {
+    name:"DAVAccount",
+    email:"dav@davnetwork.com",
+    password:"davnetwork"
+  };
 
-  let followeeUser = await User.findOne({uid:followee.uid}).exec();
+  let existingUser = await User.findOne({email: user.email}).exec();
 
-  await createUpdate(user,{
-    description: `${user.name} started following ${followeeUser.name}`
-  });
+  if(existingUser){
+    console.log("Main account already exists");
+    globalDavUid = existingUser.uid;
+    console.log(globalDavUid);
+    return;
+  }
 
-  console.log("following dav account");
-  return User.findByIdAndUpdate(user._id, {$push:{following:followeeUser._id}}, {new:true}).exec();
+  console.log("Creating main account");
+  let newuser = await savePerson(user, true);
+  console.log("Created main account");
+  globalDavUid = newuser.uid;
+  console.log(globalDavUid);
+
+};
+
+export const followUser = async (user, followee, isAdmin = false) => {
+
+  if(!isAdmin){
+    let followeeUser = await User.findOne({uid:followee.uid}).exec();
+
+    await createUpdate(user,{
+      description: `${user.name} started following ${followeeUser.name}`
+    });
+
+    console.log("following dav account");
+    return User.findByIdAndUpdate(user._id, {$push:{following:followeeUser._id}}, {new:true}).exec();
+  }
+
+  return User.findById(user._id).exec();
 
 };
