@@ -68,11 +68,20 @@ personSchema.pre('save', function(next){
 
 });
 
-personSchema.methods.comparePassword = (passw, cb) => {
+personSchema.methods.comparePassword = (passw) => {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(passw, this.password, (err, isMatch) => {
+      if(err) return reject(err);
+      resolve(isMatch);
+    });
+  });
+};
+
+/*personSchema.methods.comparePassword = (passw, cb) => {
   bcrypt.compare(passw, this.password, (err, isMatch) => {
     if(err) return cb(err);
     cb(null, isMatch);
   });
-};
+};*/
 
 export default personSchema;
