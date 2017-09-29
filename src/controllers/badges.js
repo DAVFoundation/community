@@ -1,8 +1,12 @@
 import Badge from '../models/badge/model';
 
-export const list = (req, res) => {
+export const list = async (req, res) => {
   //res.send("get badge list");
   console.log("get badge list");
+
+  let badges = await Badge.find({}).exec();
+
+  //res.json(badges);
   res.json({
     badgeIds : [3,5],
     badgesById : {
@@ -20,18 +24,14 @@ export const list = (req, res) => {
   });
 };
 
-export const create = (req, res) => {
+export const create = async (req, res) => {
   //res.send("create a badge");
   let badgeDetails = {
     title: req.body.title,
     image: req.body.image
   };
   console.log(badgeDetails);
-  Badge.create(badgeDetails)
-    .then(doc => {
-      res.json(doc);
-    })
-    .catch(err => {
-      res.send(err);
-    });
+  let newBadge = await Badge.create(badgeDetails);
+
+  res.json(newBadge);
 };
