@@ -4,7 +4,7 @@ import timestamp from 'mongoose-timestamp';
 
 const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
+const personSchema = new Schema({
   name: {
     type:String,
     required:true,
@@ -39,17 +39,17 @@ const userSchema = new Schema({
   }]
 });
 
-userSchema.plugin(timestamp);
+personSchema.plugin(timestamp);
 
-userSchema.virtual('stations', {
+personSchema.virtual('stations', {
   ref: 'Station',
   localField: '_id',
   foreignField: 'owner'
 });
 
-userSchema.pre('save', function(next){
+personSchema.pre('save', function(next){
   //const saltRounds = 10;
-  console.log("Pre save user hook");
+  console.log("Pre save person hook");
   this.wasNew = this.isNew;
 
   //next();
@@ -68,11 +68,11 @@ userSchema.pre('save', function(next){
 
 });
 
-userSchema.methods.comparePassword = (passw, cb) => {
+personSchema.methods.comparePassword = (passw, cb) => {
   bcrypt.compare(passw, this.password, (err, isMatch) => {
     if(err) return cb(err);
     cb(null, isMatch);
   });
 };
 
-export default userSchema;
+export default personSchema;
