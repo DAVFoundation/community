@@ -12,7 +12,6 @@ const badgeSchema = new Schema({
   },
   image:{
     type: String,
-    required:true,
     trim:true
   }
 });
