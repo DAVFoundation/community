@@ -1,5 +1,5 @@
 import User from '../models/user/model';
-import {awardBadge, createUpdate, createDavAccount, followUser} from '../lib/utils';
+import {awardBadge, createUpdate, createDavAccount,createUser, followUser} from '../lib/utils';
 
 export const login = (req, res) => {
   res.send("logged in");
@@ -7,22 +7,21 @@ export const login = (req, res) => {
 
 export const signup = (req, res) => {
 
-  saveUser(res);
+  saveUser(req, res);
 
 };
 
-const saveUser = async (res) => {
-  let user = {
-    name: "Tennis",
-    email: "a@7.com",
-    password: "test"
-  };
+export const logout = (req, res) => {
+  req.logout();
+};
 
-  let newuser = await User.create(user);
-  console.log("user created");
+const saveUser = async (req, res) => {
 
-  await createDavAccount(newuser);
+  let account = await createDavAccount();
   console.log("dav account created");
+
+  let newuser = await createUser(account, req);
+  console.log("user created");
 
   await createUpdate(newuser,{
     description: `${user.name} has joined DAV`

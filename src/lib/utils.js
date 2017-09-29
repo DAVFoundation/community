@@ -40,14 +40,22 @@ export const createUpdate = async (user, update) => {
   // uses user.uid to find davaccount with same uid and adds that to itself
 };
 
-export const createDavAccount = (owner) => {
-
-  let account = {
-    uid: owner.uid
-  };
+export const createDavAccount = () => {
 
   return DavAccount.create(account);
 };
+
+export const createUser = (account, req) => {
+
+  let user = {
+    name: "Tennis",
+    email: "a@7.com",
+    password: "test",
+    uid: account.uid
+  };
+
+  return User.create(user);
+}
 
 export const followUser = async (user, followee) => {
 
