@@ -7,6 +7,9 @@ router.route('/login')
   .get(auth.login);
 
 router.route('/signup')
-  .get(auth.signup);
+  .post(auth.signup);
+
+router.route('/logout')
+  .get(auth.logout);
 
 export default router;
