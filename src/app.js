@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import logger from 'morgan';
 import badgeRoutes from './routes/badges';
 import authRoutes from './routes/auth';
 import passport from 'passport';
@@ -17,20 +18,22 @@ if(process.env.NODE_ENV !== 'production'){
 
 const app = express();
 
+app.use(logger('dev'));
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
-/*app.use(session({
+app.use(session({
   genid: (req) => {
     return uuid.v4();
   },
-  secret: config.sessionSecret,
+  secret: "lalala",
   resave: false,
   saveUnitialized: true
 }));
 app.use(passport.initialize());
-app.use(passport.session());*/
+app.use(passport.session());
 
 
 app.use('/api', badgeRoutes);
