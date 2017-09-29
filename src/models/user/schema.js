@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt-nodejs';
 import timestamp from 'mongoose-timestamp';
-import {randomDavAddress, awardBadge, createUpdate, createDavAccount} from '../../lib/utils';
 
 const Schema = mongoose.Schema;
 
@@ -12,12 +11,13 @@ const userSchema = new Schema({
     trim:true
   },
   uid: {
-    type:String
+    type:String,
+    unique: true
   },
   email: {
     type: String,
     required: true,
-    //unique: true,
+    unique: true,
     trim: true
   },
   password: {
@@ -52,25 +52,24 @@ userSchema.pre('save', function(next){
   console.log("Pre save user hook");
   this.wasNew = this.isNew;
 
-  if(this.isNew){
-    console.log("this is a new user");
-    this.uid = randomDavAddress();
-  }
   //next();
-  bcrypt.genSalt(5, (err,salt) => {
-    if(err) return next(err);
-    bcrypt.hash(this.password, salt, null, (err, hash) => {
+  if(this.isModified('password') || this.isNew){
+    bcrypt.genSalt(5, (err,salt) => {
       if(err) return next(err);
-      this.password = hash;
-      console.log(this.password);
-      next();
+      bcrypt.hash(this.password, salt, null, (err, hash) => {
+        if(err) return next(err);
+        this.password = hash;
+        next();
+      });
     });
-  });
+  } else {
+    return next();
+  }
 
 });
 
-userSchema.methods.comparePassword = (candidatePassword, cb) => {
-  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+userSchema.methods.comparePassword = (passw, cb) => {
+  bcrypt.compare(passw, this.password, (err, isMatch) => {
     if(err) return cb(err);
     cb(null, isMatch);
   });
