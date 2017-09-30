@@ -21,8 +21,9 @@ export default function(passport){
     console.log("compared password");
 
     if(!correctPassword) return done(null, false);
-
-    return done(null, person);
+    let clone = Object.assign({},person._doc);
+    delete clone.password;
+    return done(null, clone);
   }));
 }
 
