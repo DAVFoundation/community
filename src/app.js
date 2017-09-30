@@ -9,12 +9,16 @@ import session from 'express-session';
 import uuid from 'uuid';
 import config from './config';
 import passportConfig from './passport/init';
+import path from 'path';
 
 const app = express();
 
 app.use(logger('dev'));
 
-app.use(cors());
+app.use(cors({
+  origin: config.allowedOrigins,
+  credentials:true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -23,8 +27,8 @@ app.use(session({
     return uuid.v4();
   },
   secret: config.session.secret,
-  resave: false,
-  saveUnitialized: true
+  resave: true,
+  saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
