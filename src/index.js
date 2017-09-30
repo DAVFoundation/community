@@ -5,7 +5,7 @@ import {initialSetup} from './lib/setup';
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect(config.mongo.url)
+mongoose.createConnection(config.mongo.url, {useMongoClient:true})
   .then(() => {
     console.log('connected to DB');
     initialSetup();
