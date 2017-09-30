@@ -5,7 +5,6 @@ import {createThing, createUpdate, awardBadge} from '../lib/utils';
 
 
 export const initialSetup = async () => {
-
   await createBadge({
     title: "Founder"
   });
@@ -14,9 +13,7 @@ export const initialSetup = async () => {
 };
 
 export const createBadge = async (obj) => {
-
   let badge = await Badge.findOne({title: obj.title}).exec();
-
   if(badge){
     console.log("Badge already exists");
     return;
