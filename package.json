@@ -22,6 +22,7 @@
     "mongoose-timestamp": "^0.6.0",
     "mongoose-url-slugs": "^1.0.2",
     "morgan": "^1.9.0",
+    "node-fetch": "^1.7.3",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "randomstring": "^1.1.5",
