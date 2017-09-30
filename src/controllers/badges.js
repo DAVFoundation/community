@@ -5,7 +5,9 @@ export const list = async (req, res) => {
   console.log("get badge list");
 
   let badges = await Badge.find({}).exec();
-
+  console.log(req.user);
+  console.log(req.isAuthenticated());
+  //console.log(req);
   //res.json(badges);
   res.json({
     badgeIds : [3,5],
