@@ -3,13 +3,27 @@ import * as auth from '../controllers/auth';
 
 const router = express.Router();
 
-router.route('/login')
-  .get(auth.login);
+export default function(passport){
 
-router.route('/signup')
-  .post(auth.signup);
+  router.route('/login')
+    .post((req, res, next) => {
+      passport.authenticate('local-login', (err, user, info) => {
+        if(err) return next(err);
 
-router.route('/logout')
-  .get(auth.logout);
+        if(!user) return res.send("no user exists");
 
-export default router;
+        req.login(user, function(err){
+          return res.json(user);
+        });
+
+      })(req, res, next);
+    });
+
+  router.route('/signup')
+    .post(auth.signup);
+
+  router.route('/logout')
+    .get(auth.logout);
+
+  return router;
+}
