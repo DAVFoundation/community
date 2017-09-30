@@ -8,7 +8,9 @@ export default function(passport){
   });
 
   passport.deserializeUser((id,done) => {
-    Person.findById(id, done);
+    Person.findById(id, function(err,user){
+      done(err,user);
+    });
   });
 
   // load strategies
