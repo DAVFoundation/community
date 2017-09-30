@@ -20,6 +20,10 @@ export const signup = async (req, res, next) => {
     password: req.body.password
   }, config.accountType.person);
 
+  req.login(person, function(err){
+    console.log("logged in new user");
+  });
+
   await createUpdate(person, {
     description: `${person.name} has joined DAV`
   });
