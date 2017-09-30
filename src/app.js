@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import logger from 'morgan';
 import badgeRoutes from './routes/badges';
 import authRoutes from './routes/auth';
+import personRoutes from './routes/person';
 import passport from 'passport';
 import session from 'express-session';
 import uuid from 'uuid';
@@ -37,6 +38,7 @@ passportConfig(passport);
 let authApi = authRoutes(passport);
 
 app.use('/api', badgeRoutes);
-app.use('/api',authApi);
+app.use('/api', authApi);
+app.use('/api', personRoutes);
 
 export default app;
