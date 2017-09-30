@@ -3,10 +3,6 @@ import Person from '../models/person/model';
 import {awardBadge, createUpdate, createThing, followPerson} from '../lib/utils';
 
 
-export const login = (req, res) => {
-  res.send("logged in");
-};
-
 export const signup = async (req, res, next) => {
 
   let existingPerson = await Person.findOne({email: req.body.email}).exec();
