@@ -8,6 +8,7 @@ import passport from 'passport';
 import session from 'express-session';
 import uuid from 'uuid';
 import config from './config';
+import passportConfig from './passport/init';
 
 const app = express();
 
@@ -27,9 +28,11 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+passportConfig(passport);
 
+let authApi = authRoutes(passport);
 
 app.use('/api', badgeRoutes);
-app.use('/api',authRoutes);
+app.use('/api',authApi);
 
 export default app;
