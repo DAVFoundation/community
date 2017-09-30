@@ -1,27 +1,28 @@
 import passportLocal from 'passport-local';
-import bcrypt from 'bcrypt-nodejs';
 import Person from '../models/person/model';
 
 const LocalStrategy = passportLocal.Strategy;
 
-export default login = (passport) => {
-
+export default function(passport){
   passport.use('local-login', new LocalStrategy({
-    usernameField : 'email',
+    usernameField: 'email',
+    passwordField: 'password',
     passReqToCallback: true
   },
-  async (req, email, password, done) => {
-
-    let existingUser = await Person.findOne({email: email}).exec();
-
-    if(!existingUser) return done(null, false);
-
-    let correctPassword = await user.comparePassword(password);
+  async(req, email, password, done) => {
+    console.log("begin auth");
+    let person = await Person.findOne({email: email}).exec();
+    console.log("finding person");
+    if(!person) return done(null, false);
+    console.log("found person");
+    //console.log(person.comparePassword(password));
+    console.log("comparin pass");
+    let correctPassword = await person.comparePassword(password);
+    console.log("compared password");
 
     if(!correctPassword) return done(null, false);
 
-    return done(null, user);
+    return done(null, person);
+  }));
+}
 
-  });
-  );
-};
