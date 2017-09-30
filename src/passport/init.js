@@ -8,7 +8,7 @@ export default function(passport){
   });
 
   passport.deserializeUser((id,done) => {
-    Person.findById(id, function(err,user){
+    Person.findById(id, '-password', function(err,user){
       done(err,user);
     });
   });
