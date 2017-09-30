@@ -67,7 +67,7 @@ export const followPerson = async (person, followee) => {
   });
 
   console.log("following dav account");
-  return Person.findByIdAndUpdate(person._id, {$push:{following:followeePerson._id}}, {new:true}).exec();
+  return Person.findByIdAndUpdate(person._id, {$push:{following:followeePerson._id}}, {fields: {password:0}, new:true}).exec();
 
 };
 
