@@ -17,7 +17,7 @@ const app = express();
 app.use(logger('dev'));
 
 app.use(cors({
-  origin: config.allowedOrigins,
+  origin: [config.allowedOrigins.login, config.allowedOrigins.client, config.allowedOrigins.server],
   credentials:true
 }));
 app.use(bodyParser.json());
