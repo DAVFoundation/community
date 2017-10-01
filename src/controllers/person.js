@@ -48,18 +48,43 @@ export const badges = async (req, res) => {
 
 export const updates = async (req, res) => {
 
-  // if(req.isAuthenticated()){
+  if(req.isAuthenticated()){
+    let ownUpdates = await Update.find({davAccount:req.user.account.id}).exec();
 
+    let followeesUpdates = await Update.find({davAccount:{$in:req.user.following}}).exec();
 
+    let allUpdates = [...ownUpdates,...followeesUpdates];
 
-  // }
-  // return res.status(403).send("Access Denied");
+    allUpdates.sort((a,b) => {
+      if(a.createdAt < b.createdAt){
+        return 1;
+      }
+      if(a.createdAt > b.createdAt){
+        return -1;
+      }
+      return 0;
+    });
 
-  let mainAccount = await DavAccount.findById(req.user.account.id).exec();
+    let updateIds = allUpdates.map(obj => {
+      return obj._id;
+    });
 
-  let updates = await Update.find({}).exec();
-  console.log(mainAccount);
-  console.log(updates);
+    let updatesById = {};
 
-  res.send("ya");
+    allUpdates.map(obj => {
+      updatesById[obj._id] = obj;
+    });
+
+    console.log(allUpdates);
+    console.log(updateIds);
+
+    return res.json({
+      updateIds:updateIds,
+      updatesById:updatesById
+    });
+  }
+
+  return res.status(403).send("Access Denied");
+
 };
+
