@@ -34,7 +34,7 @@ export const signup = async (req, res, next) => {
 
   let mainDav = await Person.findOne({email: config.dav.email}).exec();
 
-  let updatedPerson = await followPerson(person, {uid:mainDav.uid});
+  let updatedPerson = await followPerson(person, mainDav.account.uid);
 
   console.log("person is fully created");
   console.log("sending response now");

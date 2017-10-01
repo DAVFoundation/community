@@ -1,6 +1,7 @@
 import Person from '../models/person/model';
 import Badge from '../models/badge/model';
-import mongoose from 'mongoose';
+import DavAccount from '../models/davAccount/model';
+import Update from '../models/update/model';
 
 export const single = async (req, res) => {
 
@@ -47,8 +48,18 @@ export const badges = async (req, res) => {
 
 export const updates = async (req, res) => {
 
-  if(req.isAuthenticated()){
-    console.log("yes");
-  }
-  return res.status(403).send("Access Denied");
+  // if(req.isAuthenticated()){
+
+
+
+  // }
+  // return res.status(403).send("Access Denied");
+
+  let mainAccount = await DavAccount.findById(req.user.account.id).exec();
+
+  let updates = await Update.find({}).exec();
+  console.log(mainAccount);
+  console.log(updates);
+
+  res.send("ya");
 };

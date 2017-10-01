@@ -20,7 +20,7 @@ export const createThing = async (obj, type) => {
 
   let thingDetails = Object.assign({},obj);
 
-  thingDetails.uid = account.uid;
+  thingDetails.account = {uid: account.uid, id:account._id};
 
   switch(type){
   case config.accountType.person:
@@ -51,16 +51,16 @@ export const awardBadge = async (person, badgeSlug) => {
 
 export const createUpdate = async (person, update) => {
 
-  let account = await DavAccount.findOne({uid:person.uid}).exec();
+  let account = await DavAccount.findById(person.account.id).exec();
   let updateDetails = Object.assign({},update);
   updateDetails.davAccount = account._id;
   console.log(`${update.description}`);
   return Update.create(updateDetails);
 };
 
-export const followPerson = async (person, followee) => {
+export const followPerson = async (person, followeeUid) => {
 
-  let followeePerson = await Person.findOne({uid:followee.uid}).exec();
+  let followeePerson = await Person.findOne({'account.uid':followeeUid}).exec();
 
   await createUpdate(person,{
     description: `${person.name} started following ${followeePerson.name}`

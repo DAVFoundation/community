@@ -10,9 +10,15 @@ const personSchema = new Schema({
     required:true,
     trim:true
   },
-  uid: {
-    type:String,
-    unique: true
+  account: {
+    uid:{
+      type:String,
+      unique:true
+    },
+    id:{
+      type:Schema.Types.ObjectId,
+      ref:'DavAccount'
+    }
   },
   email: {
     type: String,
