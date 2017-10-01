@@ -7,6 +7,16 @@ const stationSchema = new Schema({
   owner:{
     type: Schema.Types.ObjectId,
     ref: 'Person'
+  },
+  account: {
+    uid:{
+      type: String,
+      unique: true
+    },
+    id:{
+      type:Schema.Types.ObjectId,
+      ref:'DavAccount'
+    }
   }
 });
 
