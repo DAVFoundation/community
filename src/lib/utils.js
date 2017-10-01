@@ -44,8 +44,8 @@ export const awardBadge = async (person, badgeSlug) => {
   await createUpdate(person,{
     description: `${person.name} was awarded the ${badge.title} badge`
   });
-
-  return Person.findByIdAndUpdate(person._id, {$push:{badges:badge._id}}, {new:true}).exec();
+  console.log("BADGE IDDD");
+  return Person.findByIdAndUpdate(person._id, {$push:{badges:{badge:badge._id, awardedOn: new Date()}}}, {new:true}).exec();
 
 };
 
