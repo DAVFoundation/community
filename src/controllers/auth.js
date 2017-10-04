@@ -70,5 +70,9 @@ export const subscribe = (req, res) => {
 
 export const logout = (req, res) => {
   req.logout();
+  console.log("logout user");
+  res.json({
+    success: true
+  })
 };
 

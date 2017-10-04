@@ -54,6 +54,7 @@ export const createUpdate = async (person, update) => {
   let account = await DavAccount.findById(person.account.id).exec();
   let updateDetails = Object.assign({},update);
   updateDetails.davAccount = account._id;
+  updateDetails.name = person.name;
   console.log(`${update.description}`);
   return Update.create(updateDetails);
 };

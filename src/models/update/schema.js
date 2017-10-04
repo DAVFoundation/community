@@ -8,6 +8,10 @@ const updateSchema = new Schema({
     type:String,
     trim:true
   },
+  name: {
+    type: String,
+    trim:true
+  },
   description:{
     type:String,
     required:true,
