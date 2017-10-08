@@ -5,6 +5,7 @@ import logger from 'morgan';
 import badgeRoutes from './routes/badges';
 import authRoutes from './routes/auth';
 import personRoutes from './routes/person';
+import stationRoutes from './routes/station';
 import passport from 'passport';
 import session from 'express-session';
 import uuid from 'uuid';
@@ -40,5 +41,6 @@ let authApi = authRoutes(passport);
 app.use('/api', badgeRoutes);
 app.use('/api', authApi);
 app.use('/api', personRoutes);
+app.use('/api', stationRoutes);
 
 export default app;
