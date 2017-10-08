@@ -17,6 +17,31 @@ const stationSchema = new Schema({
       type:Schema.Types.ObjectId,
       ref:'DavAccount'
     }
+  },
+  type: {
+    type: String
+  },
+  address: {
+    readable:{
+      type:String
+    },
+    coords:{
+      type: Array
+    }
+  },
+  residenceType : {
+    type: String
+  },
+  electricalOutlet: {
+    type: String
+  },
+  pedestrianAccess:{
+    type: Boolean,
+    default: false
+  },
+  drivewayAccess: {
+    type: Boolean,
+    default: false
   }
 });
 
