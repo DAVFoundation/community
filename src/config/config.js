@@ -12,7 +12,7 @@ module.exports = {
   },
   accountType:{
     vehicle:"vehicle",
-    station:"staion",
+    station:"station",
     person:"person"
   },
   cutoffDate: new Date("2017-12-31"),
