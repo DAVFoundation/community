@@ -9,6 +9,10 @@ export const initialSetup = async () => {
     title: "Founder"
   });
 
+  await createBadge({
+    title: "Station"
+  });
+
   await createMainDavAccount();
 };
 
