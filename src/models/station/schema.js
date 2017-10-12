@@ -4,7 +4,7 @@ import timestamp from 'mongoose-timestamp';
 const Schema = mongoose.Schema;
 
 const stationSchema = new Schema({
-  owner:{
+  person:{
     type: Schema.Types.ObjectId,
     ref: 'Person'
   },
@@ -22,12 +22,13 @@ const stationSchema = new Schema({
     type: String
   },
   address: {
-    readable:{
-      type:String
-    },
-    coords:{
-      type: Array
-    }
+    type: String
+  },
+  lat: {
+    type: Number
+  },
+  lng: {
+    type: Number
   },
   residenceType : {
     type: String
