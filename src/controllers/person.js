@@ -29,8 +29,6 @@ export const badges = async (req, res) => {
       badgesById[badge._id] = badge;
     });
 
-    console.log(badgesById);
-
     return res.json({
       badgeIds:badgeIds,
       badgesById:badgesById
@@ -68,9 +66,6 @@ export const updates = async (req, res) => {
     allUpdates.map(obj => {
       updatesById[obj._id] = obj;
     });
-
-    console.log(allUpdates);
-    console.log(updateIds);
 
     return res.json({
       updateIds:updateIds,

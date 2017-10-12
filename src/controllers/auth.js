@@ -8,11 +8,9 @@ export const signup = async (req, res, next) => {
   let existingPerson = await Person.findOne({email: req.body.email}).exec();
 
   if(existingPerson){
-    console.log("already exists");
     return res.send("person already exists");
   }
 
-  console.log("new person signing up");
 
   let person = await createThing({
     name: req.body.name,
@@ -36,8 +34,6 @@ export const signup = async (req, res, next) => {
 
   let updatedPerson = await followPerson(person, mainDav.account.uid);
 
-  console.log("person is fully created");
-  console.log("sending response now");
   res.json(updatedPerson);
 
 };
@@ -70,9 +66,8 @@ export const subscribe = (req, res) => {
 
 export const logout = (req, res) => {
   req.logout();
-  console.log("logout user");
   res.json({
     success: true
-  })
+  });
 };
 
