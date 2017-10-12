@@ -50,7 +50,7 @@ personSchema.plugin(timestamp);
 personSchema.virtual('stations', {
   ref: 'Station',
   localField: '_id',
-  foreignField: 'owner'
+  foreignField: 'person'
 });
 
 personSchema.pre('save', function(next){
