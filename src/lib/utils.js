@@ -34,15 +34,12 @@ export const createThing = async (obj, type) => {
   case config.accountType.person:
     thingDetails.avatar = getDavIdIconUrl(account.uid);
     return Person.create(thingDetails);
-    break;
 
   case config.accountType.station:
     return Station.create(thingDetails);
-    break;
 
   case config.accountType.vehicle:
     return console.log("create a vehicle");
-    break;
 
   default:
     return console.log("not a valid type");
@@ -67,6 +64,7 @@ export const createUpdate = async (person, update) => {
   let updateDetails = Object.assign({},update);
   updateDetails.davAccount = account._id;
   updateDetails.name = person.name;
+  updateDetails.avatar = person.avatar;
   console.log(`${update.description}`);
   return Update.create(updateDetails);
 };
