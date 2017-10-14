@@ -9,13 +9,20 @@ export default function(passport){
     .post((req, res, next) => {
 
       passport.authenticate('local-login', (err, user, info) => {
-        if(err) return next(err);
-        if(!user) return res.send("no user exists");
-        console.log("found user");
-        console.log("user");
+        if(err) {
+          console.log("LOGIN ERROR");
+          console.log(err);
+          return next(err);
+        }
+
+        if(!user) {
+          res.status(401);
+          res.statusMessage = "Nothing";
+          return res.send({message:'The email or password is incorrect'});
+        }
+
         req.login(user, function(err){
           //return res.json(user);
-          console.log("login user");
           //res.cookie("user", user._id);
           res.json(user);
         });
