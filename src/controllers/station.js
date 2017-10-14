@@ -16,17 +16,12 @@ export const create = async (req, res) => {
     person: req.user._id
   });
 
-  console.log(stationDetails);
-
   let station = await createThing(stationDetails, config.accountType.station);
-  console.log("created base station");
-  console.log(station);
+
   await createUpdate(req.user, {
     description: `${req.user.name} added a ${req.body.type} station`
   });
-  console.log("created station update");
-  await awardBadge(req.user, "station");
-  console.log("station is fully created");
+  //await awardBadge(req.user, "station");
 
   res.json({"success":true});
 };
