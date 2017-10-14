@@ -22,6 +22,16 @@ export const signup = async (req, res, next) => {
     console.log("logged in new user");
   });
 
+  console.log(typeof(req.body.subscribe));
+
+  if(req.body.subscribe == "true"){
+    console.log("subscribe the person");
+    subscribe(req.body.name, req.body.email);
+    await createUpdate(person, {
+      description: `${person.name} joined the DAV mailing list`
+    });
+  }
+
   await createUpdate(person, {
     description: `${person.name} has joined DAV`
   });
@@ -38,7 +48,7 @@ export const signup = async (req, res, next) => {
 
 };
 
-export const subscribe = (req, res) => {
+export const subscribe = (name, email) => {
   const instance = config.mailchimp.instance;
   const apiKey = config.mailchimp.apiKey;
   const listId = config.mailchimp.listId;
@@ -46,18 +56,20 @@ export const subscribe = (req, res) => {
   const fetchInit = {
     method: 'POST',
     headers: {
-      'Authorization':'Basic' + new Buffer('any:'+apiKey).toString('base64'),
+      'Authorization':'Basic ' + new Buffer('any:'+apiKey).toString('base64'),
       'Content-Type': 'application/json;charset=utf-8',
     },
     body: JSON.stringify({
-      'email_address': req.body.email,
+      'email_address': email,
       'status':'subscribed',
-      'FNAME': req.body.name
+      'FNAME': name
     })
   };
 
   fetch(url, fetchInit)
     .then(resp=>{
+      console.log("RESPONSE FROM MAILCHIMP");
+      console.log(resp.status);
       if(resp.ok){
         console.log("user subscribed to mailchimp list");
       }
