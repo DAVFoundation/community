@@ -20,6 +20,11 @@ const personSchema = new Schema({
       ref:'DavAccount'
     }
   },
+  avatar: {
+    type:String,
+    trim:true,
+    unique:true
+  },
   email: {
     type: String,
     required: true,
