@@ -24,6 +24,10 @@ const stationSchema = new Schema({
   address: {
     type: String
   },
+  loc: {
+    type: {type:String,default:'Point'},
+    coordinates: [Number]
+  },
   lat: {
     type: Number
   },

@@ -9,8 +9,16 @@ export const create = async (req, res) => {
     return res.status(403).send("Access Denied");
   }
 
+  let coordinates = [];
+  coordinates.push(req.body.lat);
+  coordinates.push(req.body.lng);
+
   let stationDetails = Object.assign({},req.body, {
-    person: req.user._id
+    person: req.user._id,
+    loc:{
+      type: "Point",
+      coordinates: coordinates
+    }
   });
 
   let station = await createThing(stationDetails, config.accountType.station);
