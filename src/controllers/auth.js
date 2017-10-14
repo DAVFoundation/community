@@ -8,7 +8,21 @@ export const signup = async (req, res, next) => {
   let existingPerson = await Person.findOne({email: req.body.email}).exec();
 
   if(existingPerson){
-    return res.send("person already exists");
+    res.status(401);
+    res.statusMessage = "Nothing";
+    return res.send({message:'User already exists'});
+  }
+
+  if(!req.body.password || !req.body.name || !req.body.email){
+    res.status(401);
+    res.statusMessage = "Nothing";
+    return res.send({message:'Please fill in all the fields'});
+  }
+
+  if(req.body.password.length < 8){
+    res.status(401);
+    res.statusMessage = "Nothing";
+    return res.send({message:'Password must be atleast 8 characters'});
   }
 
 
@@ -22,7 +36,7 @@ export const signup = async (req, res, next) => {
     console.log("logged in new user");
   });
 
-  if(req.body.subscribe){
+  if(req.body.subscribe && process.env.NODE_ENV == 'production'){
     console.log("subscribe to list");
     subscribe(req.body.name, req.body.email);
     await createUpdate(person, {
