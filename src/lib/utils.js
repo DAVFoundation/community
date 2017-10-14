@@ -4,6 +4,7 @@ import DavAccount from '../models/davAccount/model';
 import Update from '../models/update/model';
 import Badge from '../models/badge/model';
 import Person from '../models/person/model';
+import Station from '../models/station/model';
 
 
 export const randomDavAddress = () => {
@@ -12,6 +13,13 @@ export const randomDavAddress = () => {
     length: 40,
     charset: 'hex'
   });
+};
+
+export const getDavIdIconUrl = davId => {
+  if (!davId){
+    throw new Error('No valid davId provided');
+  }
+  return `https://lorempixel.com/100/100/abstract/?${davId}`;
 };
 
 export const createThing = async (obj, type) => {
@@ -24,13 +32,17 @@ export const createThing = async (obj, type) => {
 
   switch(type){
   case config.accountType.person:
+    thingDetails.avatar = getDavIdIconUrl(account.uid);
     return Person.create(thingDetails);
+    break;
 
   case config.accountType.station:
-    return console.log("create a station");
+    return Station.create(thingDetails);
+    break;
 
   case config.accountType.vehicle:
     return console.log("create a vehicle");
+    break;
 
   default:
     return console.log("not a valid type");
