@@ -22,10 +22,8 @@ export const signup = async (req, res, next) => {
     console.log("logged in new user");
   });
 
-  console.log(typeof(req.body.subscribe));
-
-  if(req.body.subscribe == "true"){
-    console.log("subscribe the person");
+  if(req.body.subscribe){
+    console.log("subscribe to list");
     subscribe(req.body.name, req.body.email);
     await createUpdate(person, {
       description: `${person.name} joined the DAV mailing list`
