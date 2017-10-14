@@ -2,6 +2,7 @@ import app from './app';
 import mongoose from 'mongoose';
 import config from './config';
 import {initialSetup} from './lib/setup';
+import {generateRandomStations} from './lib/dummyData';
 
 
 mongoose.Promise = global.Promise;
@@ -10,6 +11,10 @@ mongoose.connect(config.mongo.url, {useMongoClient:true})
     console.log('connected to DB');
     initialSetup();
     //mongoose.connection.db.dropDatabase();
+
+    if(config.generateData){
+      generateRandomStations();
+    }
   })
   .catch((err) => console.log(err));
 
