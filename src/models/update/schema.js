@@ -12,6 +12,10 @@ const updateSchema = new Schema({
     type: String,
     trim:true
   },
+  avatar: {
+    type: String,
+    trim:true
+  },
   description:{
     type:String,
     required:true,
