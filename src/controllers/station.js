@@ -1,13 +1,10 @@
 import config from '../config';
 import Station from '../models/station/model';
+import Person from '../models/person/model';
 import {awardBadge, createUpdate, createThing} from '../lib/utils';
 
-export const test = async(req, res, next) => {
-  return res.json({"what":"tf"});
-};
 
 export const create = async (req, res) => {
-  console.log("CREATE STATIon");
   if(!req.isAuthenticated()){
     return res.status(403).send("Access Denied");
   }
@@ -21,7 +18,12 @@ export const create = async (req, res) => {
   await createUpdate(req.user, {
     description: `${req.user.name} added a ${req.body.type} station`
   });
-  //await awardBadge(req.user, "station");
+
+  let user = await Person.findById(req.user._id).populate('stations').exec();
+
+  if(user.stations.length == 1){
+    await awardBadge(req.user, "station");
+  }
 
   res.json({"success":true});
 };
