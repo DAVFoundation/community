@@ -32,22 +32,25 @@ export const create = async (req, res) => {
   let stationType = req.body.type;
   console.log("STATION TYPE", stationType);
   console.log("before station save");
-  // let newuser = await Person.findByIdAndUpdate(req.user._id, {$set: {'hasStation.stationType':true}}, {new: true}).exec(function(err,doc){
-  //   console.log("SAVED NEW PERSON STATION");
-  //   console.log(doc);
+
+  let key = req.body.type;
+  let dynSet = {$set: {}};
+  dynSet.$set["hasStation."+key] = true;
+
+
+  let newuser = await Person.findByIdAndUpdate(req.user._id, dynSet, {new: true}).exec();
+
+  // var newuser = null;
+
+
+  // await Person.findById(req.user._id, function(err, doc){
+  //   doc.hasStation[stationType] = true;
+  //   doc.save(function(err, newdoc){
+  //     console.log("NEW DOC");
+  //     console.log(newdoc);
+  //     newuser = newdoc;
+  //   });
   // });
-
-  var newuser = null;
-
-
-  await Person.findById(req.user._id, function(err, doc){
-    doc.hasStation[stationType] = true;
-    doc.save(function(err, newdoc){
-      console.log("NEW DOC");
-      console.log(newdoc);
-      newuser = newdoc;
-    });
-  });
   console.log("after station save");
   console.log(newuser);
 
