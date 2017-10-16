@@ -4,12 +4,12 @@ import random from 'geojson-random';
 import DummyData from '../models/dummyData/model';
 import turf from '@turf/random';
 
-export const generateRandomStations = () => {
+export const generateRandomStations = async () => {
 
   const boundingBoxes = [
     {
       country: "usa",
-      count: 2493,
+      count: 249,
       bbox: [-122.3,31.1,-72.1,49.6],
     },
     // {
@@ -79,11 +79,17 @@ export const generateRandomStations = () => {
     // }
   ];
 
+  let points = await DummyData.find({}).exec();
+
+  if(points.length>200){
+    return;
+  }
+
   let allPoints = [];
 
   for(var region in boundingBoxes){
     //let points = random.point(230, region.bbox);
-    let points = turf('points', 230, {
+    let points = turf('points', boundingBoxes[region].count, {
       bbox: boundingBoxes[region].bbox
     });
 

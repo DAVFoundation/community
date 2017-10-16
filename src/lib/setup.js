@@ -5,12 +5,14 @@ import {createThing, createUpdate, awardBadge} from '../lib/utils';
 
 
 export const initialSetup = async () => {
-  await createBadge({
-    title: "Founder"
+  let f = await createBadge({
+    title: "Founding Member"
   });
 
+  console.log(f);
+
   await createBadge({
-    title: "Station"
+    title: "Station Master"
   });
 
   await createMainDavAccount();
@@ -43,15 +45,11 @@ export const createMainDavAccount = async () => {
   }
 
   console.log("Creating main account");
-  let mainAccount = await createThing(person, config.accountType.person);
+  let mainAccount = await createThing(person, config.accountType.person, true);
   console.log("Created main account");
 
-  await createUpdate(mainAccount, {
-    description: `${mainAccount.name} has joined DAV`
-  });
-
   if(person.createdAt <= config.cutoffDate){
-    await awardBadge(mainAccount, "founder");
+    await awardBadge(mainAccount, "founding-member");
   }
 
   console.log("Returning new main account");

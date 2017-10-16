@@ -22,7 +22,7 @@ export const getDavIdIconUrl = davId => {
   return `https://lorempixel.com/100/100/abstract/?${davId}`;
 };
 
-export const createThing = async (obj, type) => {
+export const createThing = async (obj, type, isAdmin=false) => {
 
   let account = await DavAccount.create({});
 
@@ -31,18 +31,23 @@ export const createThing = async (obj, type) => {
   thingDetails.account = {uid: account.uid, id:account._id};
 
   switch(type){
-  case config.accountType.person:
-    thingDetails.avatar = getDavIdIconUrl(account.uid);
+  case config.accountType.person:{
+    let avatarUrl = isAdmin ? "https://i.imgur.com/8wMLFxe.jpg" : "https://i.imgur.com/rSIB5Z2.png";
+    thingDetails.avatar = avatarUrl;
     return Person.create(thingDetails);
+  }
 
-  case config.accountType.station:
+  case config.accountType.station:{
     return Station.create(thingDetails);
+  }
 
-  case config.accountType.vehicle:
+  case config.accountType.vehicle:{
     return console.log("create a vehicle");
+  }
 
-  default:
+  default:{
     return console.log("not a valid type");
+  }
   }
 };
 
@@ -51,7 +56,7 @@ export const awardBadge = async (person, badgeSlug) => {
   let badge = await Badge.findOne({slug:badgeSlug}).exec();
 
   await createUpdate(person,{
-    description: `${person.name} was awarded the ${badge.title} badge`
+    description: `${person.name} has unlocked the <span class='update-bold'>${badge.title}</span> badge`
   });
 
   return Person.findByIdAndUpdate(person._id, {$push:{badges:{badge:badge._id, awardedOn: new Date()}}}, {new:true}).exec();
@@ -69,15 +74,16 @@ export const createUpdate = async (person, update) => {
   return Update.create(updateDetails);
 };
 
-export const followPerson = async (person, followeeUid) => {
+export const followPerson = async (person, followeeUid, createUpdate) => {
 
   let followeePerson = await Person.findOne({'account.uid':followeeUid}).exec();
 
-  await createUpdate(person,{
-    description: `${person.name} started following ${followeePerson.name}`
-  });
+  if(createUpdate){
+    await createUpdate(person,{
+      description: `${person.name} started following ${followeePerson.name}`
+    });
+  }
 
-  console.log("following dav account");
   return Person.findByIdAndUpdate(person._id, {$push:{following:followeePerson.account.id}}, {fields: {password:0}, new:true}).exec();
 
 };

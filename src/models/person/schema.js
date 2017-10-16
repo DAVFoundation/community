@@ -44,6 +44,28 @@ const personSchema = new Schema({
       type: Date
     }
   }],
+  roof: {
+    type: Boolean,
+    default: false
+  },
+  hasStation:{
+    backyard: {
+      type: Boolean,
+      default: false
+    },
+    roof: {
+      type: Boolean,
+      default: false
+    },
+    driveway: {
+      type: Boolean,
+      default: false
+    },
+    mailbox: {
+      type: Boolean,
+      default: false
+    }
+  },
   following: [{
     type: Schema.Types.ObjectId,
     ref: 'User'

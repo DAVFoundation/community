@@ -49,12 +49,12 @@ export const signup = async (req, res, next) => {
   });
 
   if(person.createdAt <= config.cutoffDate){
-    await awardBadge(person, "founder");
+    await awardBadge(person, "founding-member");
   }
 
   let mainDav = await Person.findOne({email: config.dav.email}).exec();
 
-  let updatedPerson = await followPerson(person, mainDav.account.uid);
+  let updatedPerson = await followPerson(person, mainDav.account.uid, false);
 
   res.json(updatedPerson);
 
