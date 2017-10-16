@@ -31,18 +31,19 @@ export const create = async (req, res) => {
 
   let stationType = req.body.type;
   console.log("STATION TYPE", stationType);
-
-  // let newuser = await Person.findByIdAndUpdate(req.user._id, {$set: {'hasStation.haha':true}}, {new: true}).exec(function(err,doc){
+  console.log("before station save");
+  // let newuser = await Person.findByIdAndUpdate(req.user._id, {$set: {'hasStation.stationType':true}}, {new: true}).exec(function(err,doc){
   //   console.log("SAVED NEW PERSON STATION");
   //   console.log(doc);
   // });
 
   var newuser = null;
-  console.log("before station save");
+
 
   await Person.findById(req.user._id, function(err, doc){
     doc.hasStation[stationType] = true;
     doc.save(function(err, newdoc){
+      console.log("NEW DOC");
       console.log(newdoc);
       newuser = newdoc;
     });

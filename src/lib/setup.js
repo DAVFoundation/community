@@ -9,8 +9,6 @@ export const initialSetup = async () => {
     title: "Founding Member"
   });
 
-  console.log(f);
-
   await createBadge({
     title: "Station Master"
   });

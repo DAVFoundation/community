@@ -22,8 +22,7 @@ const personSchema = new Schema({
   },
   avatar: {
     type:String,
-    trim:true,
-    unique:true
+    trim:true
   },
   email: {
     type: String,
