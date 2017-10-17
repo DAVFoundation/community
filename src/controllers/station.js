@@ -37,5 +37,5 @@ export const create = async (req, res) => {
     await awardBadge(req.user, "station-master");
   }
 
-  res.json({"success":true});
+  res.json(user);
 };
