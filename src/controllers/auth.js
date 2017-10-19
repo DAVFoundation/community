@@ -39,9 +39,6 @@ export const signup = async (req, res, next) => {
   if(req.body.subscribe && process.env.NODE_ENV == 'production'){
     console.log("subscribe to list");
     subscribe(req.body.name, req.body.email);
-    await createUpdate(person, {
-      description: `${person.name} joined the DAV mailing list`
-    });
   }
 
   await createUpdate(person, {
