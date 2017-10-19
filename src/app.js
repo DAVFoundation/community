@@ -19,7 +19,7 @@ const app = express();
 app.use(logger('dev'));
 
 app.use(cors({
-  origin: [config.allowedOrigins],
+  origin: config.allowedOrigins,
   credentials:true
 }));
 app.use(bodyParser.json());
