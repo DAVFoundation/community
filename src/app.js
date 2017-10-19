@@ -45,4 +45,8 @@ app.use('/api', personRoutes);
 app.use('/api', stationRoutes);
 app.use('/api', dummyDataRoutes);
 
+app.get('/', (req, res) => {
+  res.send('hello world');
+});
+
 export default app;
