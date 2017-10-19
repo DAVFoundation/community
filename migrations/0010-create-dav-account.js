@@ -1,6 +1,6 @@
-import config from '../config';
-import Person from '../models/person/model';
-import {createThing, awardBadge} from '../lib/utils';
+import config from '../src/config';
+import Person from '../src/models/person/model';
+import {createThing, awardBadge} from '../src/lib/utils';
 
 exports.up = async (db, next) => {
   let person = {

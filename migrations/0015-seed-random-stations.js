@@ -1,5 +1,5 @@
-import config from './config';
-import {generateRandomStations} from './lib/dummyData';
+import config from '../src/config';
+import {generateRandomStations} from '../src/lib/dummyData';
 
 exports.up = function(db, next){
   if(config.generateData){

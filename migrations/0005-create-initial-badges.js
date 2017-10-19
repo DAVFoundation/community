@@ -1,4 +1,4 @@
-import { createBadge } from '../lib/utils';
+import { createBadge } from '../src/lib/utils';
 
 exports.up = async (db, next) => {
 
