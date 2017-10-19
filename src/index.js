@@ -2,11 +2,13 @@ import app from './app';
 import mongoose from 'mongoose';
 import config from './config';
 import mm from 'mongodb-migrations';
-import migrationConfig from './config/migration.json';
 import migrations from './migrations';
 
 // Run migrations
-let migrator = new mm.Migrator(migrationConfig);
+let migrator = new mm.Migrator({
+  "url": config.mongo.url,
+  "directory": "./src/migrations"
+});
 migrator.bulkAdd(migrations);
 migrator.migrate(() => {});
 

@@ -1,4 +1,0 @@
-{
-  "url": "mongodb://mongo:27017",
-  "directory": "./src/migrations"
-}
