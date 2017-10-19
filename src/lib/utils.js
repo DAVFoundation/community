@@ -56,7 +56,7 @@ export const awardBadge = async (person, badgeSlug) => {
   let badge = await Badge.findOne({slug:badgeSlug}).exec();
 
   await createUpdate(person,{
-    description: `${person.name} has unlocked the <span class='update-bold'>${badge.title}</span> badge`
+    description: `${person.name} has unlocked the <span class='update-bold'>${badge.title}</span> badge.`
   });
 
   return Person.findByIdAndUpdate(person._id, {$push:{badges:{badge:badge._id, awardedOn: new Date()}}}, {new:true}).exec();
@@ -80,12 +80,10 @@ export const followPerson = async (person, followeeUid, createUpdate) => {
 
   if(createUpdate){
     await createUpdate(person,{
-      description: `${person.name} started following ${followeePerson.name}`
+      description: `${person.name} started following ${followeePerson.name}.`
     });
   }
 
   return Person.findByIdAndUpdate(person._id, {$push:{following:followeePerson.account.id}}, {fields: {password:0}, new:true}).exec();
 
 };
-
-

@@ -42,7 +42,7 @@ export const signup = async (req, res, next) => {
   }
 
   await createUpdate(person, {
-    description: `${person.name} has joined DAV`
+    description: `${person.name} has joined DAV.`
   });
 
   if(person.createdAt <= config.cutoffDate){

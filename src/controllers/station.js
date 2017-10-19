@@ -24,7 +24,7 @@ export const create = async (req, res) => {
   let station = await createThing(stationDetails, config.accountType.station);
 
   await createUpdate(req.user, {
-    description: `${req.user.name} added a ${req.body.type} station`
+    description: `${req.user.name} added a ${req.body.type} station.`
   });
 
   let key = req.body.type;
