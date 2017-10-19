@@ -22,5 +22,3 @@ mongoose.connect(config.mongo.url, {useMongoClient:true})
 app.listen(3000, () => {
   console.log("api server started on port 3000");
 });
-
-export default app;
