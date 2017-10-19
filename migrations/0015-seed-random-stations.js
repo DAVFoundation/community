@@ -3,6 +3,7 @@ import {generateRandomStations} from './lib/dummyData';
 
 exports.up = function(db, next){
   if(config.generateData){
+    this.log('Generating random stations');
     generateRandomStations();
   }
   next();

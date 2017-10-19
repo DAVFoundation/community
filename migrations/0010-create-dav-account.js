@@ -12,13 +12,13 @@ exports.up = async (db, next) => {
   let existingPerson = await Person.findOne({email: person.email}).exec();
 
   if(existingPerson){
-    console.log("Main account already exists");
+    this.log("Main account already exists");
     return;
   }
 
-  console.log("Creating main account");
+  this.log("Creating main account");
   await createThing(person, config.accountType.person, true);
-  console.log("Created main account");
+  this.log("Created main account");
 
   next();
 };
