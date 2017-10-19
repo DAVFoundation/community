@@ -8,7 +8,7 @@
   "scripts": {
     "build": "node ./node_modules/gulp/bin/gulp.js build",
     "start": "node ./node_modules/gulp/bin/gulp.js run",
-    "migrate": "node ./node_modules/mongodb-migrate -runmm -cfg ./src/config/migration.json up",
+    "migrate": "./node_modules/.bin/mm --config=./src/config/migration.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -21,7 +21,7 @@
     "express": "^4.15.4",
     "express-session": "^1.15.6",
     "geojson-random": "^0.4.0",
-    "mongodb-migrate": "^2.0.2",
+    "mongodb-migrations": "^0.8.5",
     "mongoose": "^4.11.12",
     "mongoose-timestamp": "^0.6.0",
     "mongoose-url-slugs": "^1.0.2",
