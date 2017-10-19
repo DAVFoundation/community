@@ -6,8 +6,7 @@ import migrations from './migrations';
 
 // Run migrations
 let migrator = new mm.Migrator({
-  "url": config.mongo.url,
-  "directory": "./src/migrations"
+  "url": config.mongo.url
 });
 migrator.bulkAdd(migrations);
 migrator.migrate(() => {});
