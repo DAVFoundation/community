@@ -51,6 +51,17 @@ export const createThing = async (obj, type, isAdmin=false) => {
   }
 };
 
+export const createBadge = async (obj) => {
+  let badge = await Badge.findOne({title: obj.title}).exec();
+  if(badge){
+    console.log("Badge already exists");
+    return;
+  }
+  console.log("creating new badge");
+  let badgeDetails = Object.assign({}, obj);
+  return Badge.create(badgeDetails);
+};
+
 export const awardBadge = async (person, badgeSlug) => {
 
   let badge = await Badge.findOne({slug:badgeSlug}).exec();

@@ -1,7 +1,7 @@
 import config from '../config';
 import Badge from '../models/badge/model';
 import Person from '../models/person/model';
-import {createThing, awardBadge} from '../lib/utils';
+import {createThing, createBadge, awardBadge} from '../lib/utils';
 
 
 export const initialSetup = async () => {
@@ -14,17 +14,6 @@ export const initialSetup = async () => {
   });
 
   await createMainDavAccount();
-};
-
-export const createBadge = async (obj) => {
-  let badge = await Badge.findOne({title: obj.title}).exec();
-  if(badge){
-    console.log("Badge already exists");
-    return;
-  }
-  console.log("creating new badge");
-  let badgeDetails = Object.assign({}, obj);
-  return Badge.create(badgeDetails);
 };
 
 export const createMainDavAccount = async () => {
