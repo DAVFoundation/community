@@ -1,7 +1,7 @@
 import config from '../config';
 import Badge from '../models/badge/model';
 import Person from '../models/person/model';
-import {createThing, createUpdate, awardBadge} from '../lib/utils';
+import {createThing, awardBadge} from '../lib/utils';
 
 
 export const initialSetup = async () => {
