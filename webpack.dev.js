@@ -7,12 +7,6 @@ module.exports = merge(common, {
   plugins: [
     new webpack.NamedModulesPlugin(),
 
-    new webpack.DefinePlugin({
-      'process.env':{
-        'NODE_ENV':JSON.stringify('development')
-      }
-    }),
-
     new webpack.BannerPlugin({
       banner:'require("source-map-support").install();',
       raw:true,
@@ -25,4 +19,4 @@ module.exports = merge(common, {
       entryOnly:false
     })
   ]
-})
+});

@@ -11,6 +11,16 @@ services:
       - dav
     links:
       - mongo:mongo
+    environment:
+      NODE_ENV: development
+      DAV_ACCOUNT_EMAIL: tal@dav.network
+      DAV_ACCOUNT_PASSWORD: not_secure_at_all
+      SESSION_SECRET: not_really_a_secret
+      MONGO_URL: mongodb://mongo:27017
+      ALLOWED_ORIGINS: http://localhost:4000,http://localhost:8080,http://localhost:3000,http://localhost:9090
+      MAILCHIMP_API_KEY: API_KEY_HERE
+      MAILCHIMP_LIST_ID: LIST_ID_HERE
+      MAILCHIMP_INSTANCE: INSTANCE_HERE
   mongo:
     image: mongo
     ports:
