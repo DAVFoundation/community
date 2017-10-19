@@ -16,11 +16,7 @@ module.exports = {
     person:"person"
   },
   cutoffDate: new Date("2017-12-31"),
-  allowedOrigins: {
-    login:'',
-    client:'',
-    server:''
-  },
+  allowedOrigins: [],
   mailchimp: {
     apiKey: "",
     listId: "",
