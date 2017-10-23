@@ -16,7 +16,7 @@ export default function(passport){
     if(!person) return done(null, false);
     console.log("found person");
     //console.log(person.comparePassword(password));
-    console.log("comparin pass");
+    console.log("comparing password");
     let correctPassword = await person.comparePassword(password);
     console.log("compared password");
 
