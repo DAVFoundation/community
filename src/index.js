@@ -17,5 +17,5 @@ mongoose.connect(config.mongo.url, { useMongoClient: true })
   .catch(err  => console.log(err));
 
 app.listen(3000, () => {
-  console.log("api server started on port 3000");
+  console.log("community api server started on port 3000");
 });
