@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const webpack = require('webpack');
 const nodemon = require('nodemon');
+const forever = require('forever');
 const path = require('path');
 let config = null;
 
@@ -34,16 +35,32 @@ gulp.task('watch', function(){
   });
 });
 
-gulp.task('run', ['watch'], function(){
-  nodemon({
-    execMap:{
-      js:'node'
-    },
-    script: path.join(__dirname, 'dist/server'),
-    ignore:['*'],
-    watch:['foo/'],
-    ext: 'noop'
-  }).on('restart', function(){
-    console.log("Restarted")
+if(process.env.NODE_ENV !== 'production'){
+
+  gulp.task('run', ['watch'], function(){
+    nodemon({
+      execMap:{
+        js:'node'
+      },
+      script: path.join(__dirname, 'dist/server'),
+      ignore:['*'],
+      watch:['foo/'],
+      ext: 'noop'
+    }).on('restart', function(){
+      console.log("Restarted")
+    });
   });
-});
+} else {
+
+  gulp.task('run', function(){
+
+    var options= {
+      watch: false,
+      sourceDir: path.join(__dirname, 'dist')
+    }
+
+    forever.start('server.js', options);
+  });
+}
+
+
