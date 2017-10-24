@@ -9,6 +9,10 @@ export const create = async (req, res) => {
     return res.status(403).send("Access Denied");
   }
 
+  if(!req.body.lat || !req.body.lng){
+    return res.status(500).send("Could not find the address");
+  }
+
   let coordinates = [];
   coordinates.push(req.body.lat);
   coordinates.push(req.body.lng);
