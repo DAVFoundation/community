@@ -58,6 +58,8 @@ export const signup = async (req, res, next) => {
 };
 
 export const subscribe = (name, email) => {
+
+
   const instance = config.mailchimp.instance;
   const apiKey = config.mailchimp.apiKey;
   const listId = config.mailchimp.listId;
@@ -81,6 +83,7 @@ export const subscribe = (name, email) => {
       console.log(resp.status);
       if(resp.ok){
         console.log("user subscribed to mailchimp list");
+        Person.findOneAndUpdate({email:email}, {$set:{subscribed:true}}).exec();
       }
     });
 };

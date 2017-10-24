@@ -30,6 +30,10 @@ const personSchema = new Schema({
     unique: true,
     trim: true
   },
+  subscribed: {
+    type: Boolean,
+    default: false
+  },
   password: {
     type: String,
     required:true
