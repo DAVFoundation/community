@@ -73,7 +73,9 @@ export const subscribe = (name, email) => {
     body: JSON.stringify({
       'email_address': email,
       'status':'subscribed',
-      'FNAME': name
+      'merge_fields':{
+        'NAME':name
+      }
     })
   };
 
