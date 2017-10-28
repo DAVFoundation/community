@@ -22,7 +22,7 @@ export const signup = async (req, res, next) => {
   if(req.body.password.length < 8){
     res.status(401);
     res.statusMessage = "Nothing";
-    return res.send({message:'Password must be atleast 8 characters'});
+    return res.send({message:'Password must be at least 8 characters'});
   }
 
 
