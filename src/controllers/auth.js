@@ -10,19 +10,19 @@ export const signup = async (req, res, next) => {
   if(existingPerson){
     res.status(401);
     res.statusMessage = "Nothing";
-    return res.send({message:'User already exists'});
+    return res.send({message: 'User already exists', error: 'user_exists'});
   }
 
   if(!req.body.password || !req.body.name || !req.body.email){
     res.status(401);
     res.statusMessage = "Nothing";
-    return res.send({message:'Please fill in all the fields'});
+    return res.send({message: 'Please fill in all the fields', error: 'required_fields_missing'});
   }
 
   if(req.body.password.length < 8){
     res.status(401);
     res.statusMessage = "Nothing";
-    return res.send({message:'Password must be at least 8 characters'});
+    return res.send({message: 'Password must be at least 8 characters', error: 'short_pass'});
   }
 
 
