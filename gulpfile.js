@@ -21,7 +21,7 @@ function onBuild(done){
     if(done){
       done();
     }
-  }
+  };
 }
 
 gulp.task('build', function(done){
@@ -47,17 +47,17 @@ if(process.env.NODE_ENV !== 'production'){
       watch:['foo/'],
       ext: 'noop'
     }).on('restart', function(){
-      console.log("Restarted")
+      console.log("Restarted");
     });
   });
 } else {
 
   gulp.task('run', function(){
 
-    var options= {
+    const options= {
       watch: false,
       sourceDir: path.join(__dirname, 'dist')
-    }
+    };
 
     forever.start('server.js', options);
   });
