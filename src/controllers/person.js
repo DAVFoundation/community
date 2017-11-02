@@ -2,6 +2,16 @@ import Person from '../models/person/model';
 import Badge from '../models/badge/model';
 import DavAccount from '../models/davAccount/model';
 import Update from '../models/update/model';
+import Web3 from 'web3';
+import config from '../config';
+
+const web3 = new Web3(new Web3.providers.HttpProvider(config.ethNode));
+
+if(web3.isConnected()){
+  console.log("CONNECTED TO NODE");
+} else {
+  console.log("NOT CONNECTED TO ETH NODE");
+}
 
 export const single = async (req, res) => {
 
@@ -76,4 +86,34 @@ export const updates = async (req, res) => {
   return res.status(403).send("Access Denied");
 
 };
+
+export const balance = async (req, res) => {
+
+  try {
+    let ethBalance = await getBalance('0x60755F81FCC84e07C43Fb81B3e69F8Dd1fe805e9');
+    ethBalance = web3.fromWei(ethBalance).toString();
+
+    return res.send(ethBalance);
+  } catch (err){
+    console.log(err);
+    res.status(404).send("Incorrect address");
+  }
+
+
+  //if(!ethBalance) return res.status(404).send("Couldn't get balance");
+
+
+};
+
+function getBalance(address) {
+  return new Promise((resolve, reject) => {
+    web3.eth.getBalance(address, (error, result) => {
+      if(error){
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
 
