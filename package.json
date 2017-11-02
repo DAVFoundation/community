@@ -31,7 +31,8 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "randomstring": "^1.1.5",
-    "uuid": "^3.1.0"
+    "uuid": "^3.1.0",
+    "web3": "^0.20.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
