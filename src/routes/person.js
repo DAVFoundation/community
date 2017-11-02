@@ -12,4 +12,7 @@ router.route('/user/badges')
 router.route('/user/updates')
   .get(person.updates);
 
+router.route('/user/balance')
+  .get(person.balance);
+
 export default router;
