@@ -22,5 +22,6 @@ module.exports = {
     listId: process.env.MAILCHIMP_LIST_ID || "",
     instance: process.env.MAILCHIMP_INSTANCE || ""
   },
-  generateData: true
+  generateData: true,
+  ethNode: 'http://pub-node1.etherscan.io:8545'
 };
