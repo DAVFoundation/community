@@ -1,8 +1,8 @@
 module.exports = {
   dav:{
     name: process.env.DAV_ACCOUNT_NAME || "DAV Foundation",
-    email: process.env.DAV_ACCOUNT_EMAIL || "",
-    password: process.env.DAV_ACCOUNT_PASSWORD || ""
+    email: process.env.DAV_ACCOUNT_EMAIL || "tal@dav.network",
+    password: process.env.DAV_ACCOUNT_PASSWORD || "12345"
   },
   session: {
     secret: process.env.SESSION_SECRET || ""
