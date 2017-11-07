@@ -5,9 +5,9 @@
   "license": "MIT",
   "author": "Abhishek Singh <abhishek@shek.it>",
   "main": "index.js",
-  "repository" :{ 
-    "type" : "git", 
-    "url" : "https://github.com/DAVFoundation/community.git"
+  "repository": { 
+    "type": "git", 
+    "url": "https://github.com/DAVFoundation/community.git"
   },
   "scripts": {
     "build": "node ./node_modules/gulp/bin/gulp.js build",
