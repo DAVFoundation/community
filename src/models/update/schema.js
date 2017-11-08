@@ -12,6 +12,11 @@ const updateSchema = new Schema({
     type: String,
     trim:true
   },
+  createdAt: Date,
+  updatedAt: {
+    type: Date,
+    default: Date.now
+  },
   avatar: {
     type: String,
     trim:true
@@ -27,10 +32,17 @@ const updateSchema = new Schema({
   }
 });
 
-updateSchema.plugin(timestamp);
 
 updateSchema.pre('save', function(next){
   console.log("pre hook on update");
+  let currentDate = new Date();
+
+  this.updatedAt = currentDate;
+
+  if(this.isNew){
+    this.createdAt = currentDate;
+  }
+
   next();
 });
 
