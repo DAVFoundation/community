@@ -72,7 +72,21 @@ const personSchema = new Schema({
   following: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
-  }]
+  }],
+  permissions: {
+    canAccessAdmin:{
+      type:Boolean,
+      default:false
+    },
+    canPostDavUpdates:{
+      type:Boolean,
+      default:false
+    },
+    canDeleteDavUpdates:{
+      type:Boolean,
+      default:false
+    }
+  }
 });
 
 personSchema.plugin(timestamp);
