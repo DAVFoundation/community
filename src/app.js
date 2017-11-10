@@ -7,6 +7,7 @@ import authRoutes from './routes/auth';
 import personRoutes from './routes/person';
 import stationRoutes from './routes/station';
 import dummyDataRoutes from './routes/dummyData';
+import updateRoutes from './routes/update';
 import passport from 'passport';
 import session from 'express-session';
 import uuid from 'uuid';
@@ -55,6 +56,7 @@ app.use('/api', authApi);
 app.use('/api', personRoutes);
 app.use('/api', stationRoutes);
 app.use('/api', dummyDataRoutes);
+app.use('/api', updateRoutes);
 
 app.get('/', (req, res) => {
   res.send('hello world');
