@@ -5,8 +5,8 @@
   "license": "MIT",
   "author": "Abhishek Singh <abhishek@shek.it>",
   "main": "index.js",
-  "repository": { 
-    "type": "git", 
+  "repository": {
+    "type": "git",
     "url": "https://github.com/DAVFoundation/community.git"
   },
   "scripts": {
