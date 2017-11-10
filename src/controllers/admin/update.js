@@ -1,8 +1,7 @@
-import Update from '../models/update/model';
-import DavAccount from '../models/davAccount/model';
-import Person from '../models/person/model';
-import config from '../config';
-import * as restrict from '../passport/restrict';
+import Update from '../../models/update/model';
+import DavAccount from '../../models/davAccount/model';
+import Person from '../../models/person/model';
+import config from '../../config';
 
 export const create = async (req, res) => {
 

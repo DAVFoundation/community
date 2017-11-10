@@ -1,6 +1,6 @@
 import express from 'express';
-import * as update from '../controllers/update';
-import * as restrict from '../passport/restrict';
+import * as update from '../../controllers/admin/update';
+import * as restrict from '../../passport/restrict';
 
 const router = express.Router();
 
