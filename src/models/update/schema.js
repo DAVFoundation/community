@@ -37,10 +37,13 @@ updateSchema.pre('save', function(next){
   console.log("pre hook on update");
   let currentDate = new Date();
 
-  this.updatedAt = currentDate;
-
-  if(this.isNew){
+  if(!this.isModified('createdAt') && this.isNew){
+    // set default date if date is not passed in
     this.createdAt = currentDate;
+  }
+
+  if(!this.isModified('updatedAt')){
+    this.updatedAt = currentDate;
   }
 
   next();
