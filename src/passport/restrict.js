@@ -7,18 +7,18 @@ export const isLoggedIn = (req, res, next) => {
 export const canAccessAdmin = (req, res, next) => {
   if(req.isAuthenticated() && req.user.permissions.canAccessAdmin) return next();
 
-  res.status(403).send("forbidden");
+  return res.status(403).send("forbidden");
 };
 
 export const canPostDavUpdates = (req, res, next) => {
   if(req.isAuthenticated() && req.user.permissions.canPostDavUpdates) return next();
 
-  res.status(403).send("forbidden");
+  return res.status(403).send("forbidden");
 };
 
 export const canDeleteDavUpdates = (req, res, next) => {
   if(req.isAuthenticated() && req.user.permissions.canDeleteDavUpdates) return next();
 
-  res.status(403).send("forbidden");
+  return res.status(403).send("forbidden");
 };
 

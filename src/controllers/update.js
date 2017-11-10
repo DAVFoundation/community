@@ -6,9 +6,6 @@ import * as restrict from '../passport/restrict';
 
 export const create = async (req, res) => {
 
-  restrict.canAccessAdmin();
-  restrict.canPostDavUpdates();
-
   let person = await Person.findOne({email:config.dav.email}).exec();
 
   let account = await DavAccount.findById(person.account.id).exec();
@@ -38,8 +35,6 @@ export const edit = async(req, res) => {
 };
 
 export const remove = async (req, res) => {
-  restrict.canAccessAdmin();
-  restrict.canDeleteDavUpdates();
 
   await Update.findByIdAndRemove(req.params.id).exec();
 
