@@ -2,8 +2,11 @@ import Update from '../models/update/model';
 import DavAccount from '../models/davAccount/model';
 import Person from '../models/person/model';
 import config from '../config';
+import * as restrict from '../passport/restrict';
 
 export const create = async (req, res) => {
+
+  restrict.canAccessAdmin();
 
   let person = await Person.findOne({email:config.dav.email}).exec();
 
