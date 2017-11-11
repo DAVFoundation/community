@@ -4,6 +4,9 @@ import * as restrict from '../../passport/restrict';
 
 const router = express.Router();
 
+router.route('/update/list')
+  .get(restrict.canAccessAdmin, update.list);
+
 router.route('/update/add')
   .post(restrict.canAccessAdmin, restrict.canPostDavUpdates, update.create);
 

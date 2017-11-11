@@ -3,6 +3,17 @@ import DavAccount from '../../models/davAccount/model';
 import Person from '../../models/person/model';
 import config from '../../config';
 
+export const list = async (req, res) => {
+  let person = await Person.findOne({email:config.dav.email}).exec();
+
+  let updates = await Update.find({davAccount: person.account.id}).sort('-createdAt').exec();
+
+  return res.json({
+    updates: updates
+  });
+
+};
+
 export const create = async (req, res) => {
 
   let person = await Person.findOne({email:config.dav.email}).exec();
