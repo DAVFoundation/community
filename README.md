@@ -1,5 +1,7 @@
 # DAV Community
 
+[![Gitter](https://img.shields.io/gitter/room/DAVFoundation/DAV-Contributors.svg?style=flat-square)](https://gitter.im/DAVFoundation/DAV-Contributors)
+
 The center of DAV's community sits at [my.dav.network](https://my.dav.network/).
 
 It is the place for DAV enthusiasts to:
