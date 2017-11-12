@@ -1,5 +1,7 @@
 # DAV Community
 
+[![Gitter](https://img.shields.io/gitter/room/DAVFoundation/DAV-Contributors.svg?style=flat-square)](https://gitter.im/DAVFoundation/DAV-Contributors)
+
 The center of DAV's community sits at [my.dav.network](https://my.dav.network/).
 
 It is the place for DAV enthusiasts to:
@@ -16,8 +18,6 @@ This project is the server that runs the community. You can also find the fronte
 Feel free to **Star** and **Watch** it, but watch out for falling debris.
 
 Feedback and contributions are always welcome and appreciated.
-
-[![Gitter](https://img.shields.io/gitter/room/DAVFoundation/DAV-Contributors.svg?style=flat-square)](https://gitter.im/DAVFoundation/DAV-Contributors)
 
 ### License
 
