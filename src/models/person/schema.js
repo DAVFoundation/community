@@ -85,6 +85,10 @@ const personSchema = new Schema({
     canDeleteDavUpdates:{
       type:Boolean,
       default:false
+    },
+    canGrantPermissions: {
+      type: Boolean,
+      default: false
     }
   }
 });
