@@ -8,6 +8,7 @@ module.exports.up = async function (done) {
 
   if(person){
     let dynSet = {$set: {}};
+    dynSet.$set["permissions.canGrantPermissions"] = true;
     dynSet.$set["permissions.canAccessAdmin"] = true;
     dynSet.$set["permissions.canPostDavUpdates"] = true;
     dynSet.$set["permissions.canDeleteDavUpdates"] = true;
