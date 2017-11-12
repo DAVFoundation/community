@@ -3,6 +3,18 @@ import DavAccount from '../../models/davAccount/model';
 import Person from '../../models/person/model';
 import config from '../../config';
 
+export const grant = async (req, res) => {
+
+  let permissionType = req.params.accessType; // options are canAccessAdmin, canPostDavUpdates, canDeleteDavUpdates
+
+  let dynSet = {$set: {}};
+  dynSet.$set["permissions."+permissionType] = true;
+
+  let person = await Person.findOneAndUpdate({email: req.params.email}, dynSet, {new:true}).exec();
+
+  res.json(person);
+};
+
 export const list = async (req, res) => {
   let person = await Person.findOne({email:config.dav.email}).exec();
 
