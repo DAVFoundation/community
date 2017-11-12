@@ -51,12 +51,16 @@ passportConfig(passport);
 
 let authApi = authRoutes(passport);
 
+//profile regular routes
+
 app.use('/api', badgeRoutes);
 app.use('/api', authApi);
 app.use('/api', personRoutes);
 app.use('/api', stationRoutes);
 app.use('/api', dummyDataRoutes);
-app.use('/api', updateRoutes);
+
+// admin specifi routes
+app.use('/api/admin', updateRoutes);
 
 app.get('/', (req, res) => {
   res.send('hello world');
