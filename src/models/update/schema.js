@@ -26,6 +26,10 @@ const updateSchema = new Schema({
     required:true,
     trim:true
   },
+  link: {
+    type:String,
+    trim: true
+  },
   davAccount:{
     type: Schema.Types.ObjectId,
     ref:'DavAccount'
