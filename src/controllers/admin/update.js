@@ -5,7 +5,7 @@ import config from '../../config';
 
 export const grant = async (req, res) => {
 
-  let permissionType = req.params.accessType; // options are canAccessAdmin, canPostDavUpdates, canDeleteDavUpdates
+  let permissionType = req.params.accessType; // options found in person/schema.js
 
   let dynSet = {$set: {}};
   dynSet.$set["permissions."+permissionType] = true;

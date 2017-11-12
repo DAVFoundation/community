@@ -5,7 +5,7 @@ import * as restrict from '../../passport/restrict';
 const router = express.Router();
 
 router.route('/update/grant/:accessType/:email')
-  .put(update.grant);
+  .put(restrict.canGrantPermissions, update.grant);
 
 router.route('/update/list')
   .get(restrict.canAccessAdmin, update.list);

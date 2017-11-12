@@ -4,6 +4,12 @@ export const isLoggedIn = (req, res, next) => {
   res.status(403).send("forbidden");
 };
 
+export const canGrantPermissions = (req, res, next) => {
+  if(req.isAuthenticated() && req.user.permissions.canGrantPermissions) return next();
+
+  return res.status(403).send("forbidden");
+};
+
 export const canAccessAdmin = (req, res, next) => {
   if(req.isAuthenticated() && req.user.permissions.canAccessAdmin) return next();
 
