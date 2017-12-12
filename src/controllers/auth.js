@@ -2,6 +2,8 @@ import config from '../config';
 import Person from '../models/person/model';
 import {awardBadge, createUpdate, createThing, followPerson} from '../lib/utils';
 import fetch from 'node-fetch';
+import crypto from 'crypto';
+//import nodemailer from 'nodemailer'
 
 export const signup = async (req, res, next) => {
 
@@ -54,6 +56,62 @@ export const signup = async (req, res, next) => {
   let updatedPerson = await followPerson(person, mainDav.account.uid, false);
 
   res.json(updatedPerson);
+
+};
+
+function genCrypto(){
+  return new Promise((resolve, reject) => {
+    crypto.randomBytes(20, (err, buf) => {
+      if(err){
+        reject(err);
+      }
+      resolve(buf.toString('hex'));
+    });
+  });
+}
+
+function sendMail(mailer, options){
+  return new Promise((resolve, reject)=> {
+    mailer.sendMail(options, (err) => {
+      if(err){
+        reject(err)
+      }
+      resolve('done')
+    })
+  })
+}
+
+export const reset = async(req, res, next) => {
+
+  let token = await genCrypto();
+
+  let user = await Person.findOne({email: req.body.email}).exec();
+
+  if(!user){
+    return res.json({
+      message: 'No account with this email'
+    })
+  }
+  let expiryDate = Date.now() + 3600000
+
+  let updatedUser = await Person.findOneAndUpdate({email:req.body.email}, {$set:{resetPasswordToken:token, resetPasswordExpires: expiryDate}}).exec();
+
+  //let mailer = nodemailer.createTransport(sgTransport(config.sendgrid))
+  let mailOptions = {
+    to: user.email,
+    from: 'passwordreset@dav.network',
+    subject: 'DAV - Reset your Password',
+    text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.
+           Please click on the following link, or paste this into your browser to complete the process:
+           https://my.dav.network/api/reset/${token}.
+
+           If you did not request this, please ignore this email and your password will remain unchanged.`
+  }
+
+  //await sendMail(mailer, mailOptions)
+
+
+  res.json({message: "An email has been sent to you"});
 
 };
 
