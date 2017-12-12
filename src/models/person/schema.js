@@ -73,6 +73,12 @@ const personSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   }],
+  resetPasswordToken:{
+    type:String
+  },
+  resetPasswordExpires:{
+    type:Date
+  },
   permissions: {
     canAccessAdmin:{
       type:Boolean,
