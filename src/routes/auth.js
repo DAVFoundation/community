@@ -36,5 +36,11 @@ export default function(passport){
   router.route('/logout')
     .get(auth.logout);
 
+  router.route('/forgot')
+    .post(auth.reset)
+
+  router.route('/verify')
+    .post(auth.verify)
+
   return router;
 }
