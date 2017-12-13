@@ -37,10 +37,13 @@ export default function(passport){
     .get(auth.logout);
 
   router.route('/forgot')
-    .post(auth.reset)
+    .post(auth.reset);
 
-  router.route('/verify')
-    .post(auth.verify)
+  router.route('/reset/:token')
+    .post(auth.resetToken)
+
+  // router.route('/verify')
+  //   .post(auth.verify);
 
   return router;
 }
