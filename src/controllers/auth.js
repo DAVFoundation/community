@@ -3,7 +3,7 @@ import Person from '../models/person/model';
 import {awardBadge, createUpdate, createThing, followPerson} from '../lib/utils';
 import fetch from 'node-fetch';
 import crypto from 'crypto';
-//import nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer';
 
 export const signup = async (req, res, next) => {
 
@@ -101,7 +101,7 @@ export const reset = async(req, res, next) => {
     to: user.email,
     from: 'passwordreset@dav.network',
     subject: 'DAV - Reset your Password',
-    text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.
+    text: `You are receiving this because you (or someone else) have requested the reset of the password for your DAV community account.
            Please click on the following link, or paste this into your browser to complete the process:
            https://my.dav.network/api/reset/${token}.
 

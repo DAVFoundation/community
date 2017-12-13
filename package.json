@@ -32,6 +32,7 @@
     "mongoose-url-slugs": "^1.0.2",
     "morgan": "^1.9.0",
     "node-fetch": "^1.7.3",
+    "nodemailer": "^4.4.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "randomstring": "^1.1.5",
