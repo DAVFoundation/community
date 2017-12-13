@@ -115,6 +115,19 @@ export const reset = async(req, res, next) => {
 
 };
 
+export const resetToken = async (req, res) => {
+  let user = await Person.findOne({resetPasswordToken: req.params.token,
+    resetPasswordExpires: {$gt: Date.now()}}).exec()
+
+  if(!user){
+    return res.json({expired:true})
+  }
+
+  let updateUser = await Person.findOneAndUpdate({password: req.body.password, resetPasswordToken:undefined, resetPasswordExpires:undefined}).exec()
+
+  return res.json({message: "password changed"})
+}
+
 export const subscribe = (name, email) => {
 
 
