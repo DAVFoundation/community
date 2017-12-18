@@ -23,5 +23,8 @@ module.exports = {
     instance: process.env.MAILCHIMP_INSTANCE || ""
   },
   generateData: true,
-  ethNode: 'http://pub-node1.etherscan.io:8545'
+  ethNode: 'http://pub-node1.etherscan.io:8545',
+  sendgrid: {
+    apiKey: process.env.SENDGRID_API_KEY || ""
+  }
 };
