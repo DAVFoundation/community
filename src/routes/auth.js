@@ -40,7 +40,7 @@ export default function(passport){
     .post(auth.reset);
 
   router.route('/reset/:token')
-    .post(auth.resetToken)
+    .post(auth.resetToken);
 
   // router.route('/verify')
   //   .post(auth.verify);

@@ -60,5 +60,5 @@ export const remove = async (req, res) => {
 
   await Update.findByIdAndRemove(req.params.id).exec();
 
-  return res.json({"success":true});
+  return res.json({id: req.params.id});
 };

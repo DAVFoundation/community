@@ -4,6 +4,9 @@ import {awardBadge, createUpdate, createThing, followPerson} from '../lib/utils'
 import fetch from 'node-fetch';
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
+import sgMail from '@sendgrid/mail';
+
+sgMail.setApiKey(config.sendgrid.apiKey);
 
 export const signup = async (req, res, next) => {
 
@@ -74,11 +77,11 @@ function sendMail(mailer, options){
   return new Promise((resolve, reject)=> {
     mailer.sendMail(options, (err) => {
       if(err){
-        reject(err)
+        reject(err);
       }
-      resolve('done')
-    })
-  })
+      resolve('done');
+    });
+  });
 }
 
 export const reset = async(req, res, next) => {
@@ -88,45 +91,45 @@ export const reset = async(req, res, next) => {
   let user = await Person.findOne({email: req.body.email}).exec();
 
   if(!user){
-    return res.json({
-      message: 'No account with this email'
-    })
+    res.status(401);
+    res.statusMessage = "Access Denied";
+    return res.send({message: 'No account with this email', error: 'no_account'});
   }
-  let expiryDate = Date.now() + 3600000
+  let expiryDate = Date.now() + 43200000; // 12 hour expiry
 
   let updatedUser = await Person.findOneAndUpdate({email:req.body.email}, {$set:{resetPasswordToken:token, resetPasswordExpires: expiryDate}}).exec();
 
   //let mailer = nodemailer.createTransport(sgTransport(config.sendgrid))
-  let mailOptions = {
+  let msg = {
     to: user.email,
     from: 'passwordreset@dav.network',
     subject: 'DAV - Reset your Password',
     text: `You are receiving this because you (or someone else) have requested the reset of the password for your DAV community account.
            Please click on the following link, or paste this into your browser to complete the process:
-           https://my.dav.network/api/reset/${token}.
+           https://${req.headers.host}/api/reset/${token}.
 
            If you did not request this, please ignore this email and your password will remain unchanged.`
-  }
+  };
 
-  //await sendMail(mailer, mailOptions)
+  //sgMail.send(msg);
 
-
-  res.json({message: "An email has been sent to you"});
+  res.status(200)
+  return res.send({message: "An email has been sent to you"});
 
 };
 
 export const resetToken = async (req, res) => {
   let user = await Person.findOne({resetPasswordToken: req.params.token,
-    resetPasswordExpires: {$gt: Date.now()}}).exec()
+    resetPasswordExpires: {$gt: Date.now()}}).exec();
 
   if(!user){
-    return res.json({expired:true})
+    return res.json({expired:true});
   }
 
-  let updateUser = await Person.findOneAndUpdate({password: req.body.password, resetPasswordToken:undefined, resetPasswordExpires:undefined}).exec()
+  let updateUser = await Person.findOneAndUpdate({password: req.body.password, resetPasswordToken:undefined, resetPasswordExpires:undefined}).exec();
 
-  return res.json({message: "password changed"})
-}
+  return res.json({message: "password changed"});
+};
 
 export const subscribe = (name, email) => {
 
