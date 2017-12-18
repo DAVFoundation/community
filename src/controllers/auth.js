@@ -119,16 +119,38 @@ export const reset = async(req, res, next) => {
 };
 
 export const resetToken = async (req, res) => {
+
+  if(req.body.password != req.body.passwordCopy){
+    res.status(401);
+    res.statusMessage = "Nothing";
+    return res.send({message: "Passwords don't match", error: 'password_matching'});
+  }
+
+  if(!req.body.password || !req.body.passwordCopy){
+    res.status(401);
+    res.statusMessage = "Nothing";
+    return res.send({message: 'Please enter the password twice', error: 'password_fields_missing'});
+  }
+
+  if(req.body.password.length < 8){
+    res.status(401);
+    res.statusMessage = "Nothing";
+    return res.send({message: 'Password must be at least 8 characters', error: 'short_pass'});
+  }
+
   let user = await Person.findOne({resetPasswordToken: req.params.token,
     resetPasswordExpires: {$gt: Date.now()}}).exec();
 
   if(!user){
-    return res.json({expired:true});
+    res.status(401);
+    res.statusMessage = "Access Denied";
+    return res.send({message: 'The reset link has expired. Please request another password.', error: 'reset_expire'});
   }
 
   let updateUser = await Person.findOneAndUpdate({password: req.body.password, resetPasswordToken:undefined, resetPasswordExpires:undefined}).exec();
 
-  return res.json({message: "password changed"});
+  res.status(200)
+  return res.send({message: "Password changed successfully"});
 };
 
 export const subscribe = (name, email) => {
