@@ -149,6 +149,15 @@ export const resetToken = async (req, res) => {
 
   let updateUser = await Person.findOneAndUpdate({password: req.body.password, resetPasswordToken:undefined, resetPasswordExpires:undefined}).exec();
 
+  let msg = {
+    to: user.email,
+    from: 'passwordreset@dav.network',
+    subject: 'DAV - Password Reset Successful',
+    text: `This is to confirm that the password for your account ${updatedUser.email} has been changed`
+  };
+
+  //sgMail.send(msg);
+
   res.status(200)
   return res.send({message: "Success! You will be redirected to the login page automatically."});
 };
