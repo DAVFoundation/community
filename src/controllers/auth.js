@@ -150,7 +150,7 @@ export const resetToken = async (req, res) => {
   let updateUser = await Person.findOneAndUpdate({password: req.body.password, resetPasswordToken:undefined, resetPasswordExpires:undefined}).exec();
 
   res.status(200)
-  return res.send({message: "Password changed successfully"});
+  return res.send({message: "Success! You will be redirected to the login page automatically."});
 };
 
 export const subscribe = (name, email) => {
