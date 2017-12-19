@@ -106,17 +106,18 @@ export const reset = async(req, res, next) => {
     subject: 'DAV - Reset your Password',
     text: `You are receiving this because you (or someone else) have requested the reset of the password for your DAV community account.
            Please click on the following link, or paste this into your browser to complete the process:
-           https://${req.headers.host}/?=${token}#verify
+           https://my.dav.network/?token=${token}#verify
 
            If you did not request this, please ignore this email and your password will remain unchanged.`
   };
 
   if(config.sendgrid.apiKey != ""){
+    console.log("Send mail");
     sgMail.send(msg);
   }
 
-  res.status(200)
-  return res.send({message: "An email has been sent to you"});
+  res.status(200);
+  return res.send({message: "An email has been sent to you", error: null});
 
 };
 
@@ -149,21 +150,21 @@ export const resetToken = async (req, res) => {
     return res.send({message: 'The reset link has expired. Please request another password.', error: 'reset_expire'});
   }
 
-  let updateUser = await Person.findOneAndUpdate({password: req.body.password, resetPasswordToken:undefined, resetPasswordExpires:undefined}).exec();
+  let updatedUser = await Person.findByIdAndUpdate(user._id, {$set:{password: req.body.password, resetPasswordToken:undefined, resetPasswordExpires:undefined}}).exec();
 
   let msg = {
     to: user.email,
     from: 'passwordreset@dav.network',
     subject: 'DAV - Password Reset Successful',
-    text: `This is to confirm that the password for your account ${updatedUser.email} has been changed`
+    text: `This is to confirm that the password for your DAV community account with email ${updatedUser.email} has been changed`
   };
 
   if(config.sendgrid.apiKey != ""){
     sgMail.send(msg);
   }
 
-  res.status(200)
-  return res.send({message: "Success! You will be redirected to the login page automatically."});
+  res.status(200);
+  return res.send({message: "Success! You will be redirected to the login page automatically.", error: null});
 };
 
 export const subscribe = (name, email) => {
