@@ -111,7 +111,9 @@ export const reset = async(req, res, next) => {
            If you did not request this, please ignore this email and your password will remain unchanged.`
   };
 
-  //sgMail.send(msg);
+  if(config.sendgrid.apiKey != ""){
+    sgMail.send(msg);
+  }
 
   res.status(200)
   return res.send({message: "An email has been sent to you"});
@@ -156,7 +158,9 @@ export const resetToken = async (req, res) => {
     text: `This is to confirm that the password for your account ${updatedUser.email} has been changed`
   };
 
-  //sgMail.send(msg);
+  if(config.sendgrid.apiKey != ""){
+    sgMail.send(msg);
+  }
 
   res.status(200)
   return res.send({message: "Success! You will be redirected to the login page automatically."});
