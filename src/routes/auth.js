@@ -33,6 +33,9 @@ export default function(passport){
   router.route('/signup')
     .post(auth.signup);
 
+  router.route('/register')
+    .post(auth.register);
+
   router.route('/logout')
     .get(auth.logout);
 
