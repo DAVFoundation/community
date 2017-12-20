@@ -73,6 +73,36 @@ function genCrypto(){
   });
 }
 
+export const register = async(req, res, next) => {
+
+  let existingPerson = await Person.findOne({email: req.body.email}).exec();
+
+  if(existingPerson){
+    res.status(401);
+    res.statusMessage = "Nothing";
+    return res.send({message: 'You have already subscribed!', error: 'user_exists'});
+  }
+
+  let tempPassword = await genCrypto();
+
+  let person = await createThing({
+    email: req.body.email,
+    password: tempPassword
+  }, config.accountType.person);
+
+  if(req.body.subscribe && process.env.NODE_ENV == 'production'){
+    subscribe("Subscriber", req.body.email);
+  }
+
+  if(person.createdAt <= config.cutoffDate){
+    await awardBadge(person, "founding-member");
+  }
+
+  res.status(200)
+  return res.send({message:"Thanks! You've been added", error: null});
+
+};
+
 function sendMail(mailer, options){
   return new Promise((resolve, reject)=> {
     mailer.sendMail(options, (err) => {
