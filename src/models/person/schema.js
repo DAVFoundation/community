@@ -7,7 +7,6 @@ const Schema = mongoose.Schema;
 const personSchema = new Schema({
   name: {
     type:String,
-    required:true,
     trim:true
   },
   account: {
