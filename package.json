@@ -9,6 +9,9 @@
     "type": "git",
     "url": "https://github.com/DAVFoundation/community.git"
   },
+  "bugs": {
+    "url": "https://github.com/DAVFoundation/community/issues"
+  },
   "scripts": {
     "build": "node ./node_modules/gulp/bin/gulp.js build",
     "start": "node ./node_modules/gulp/bin/gulp.js run",
