@@ -12,6 +12,7 @@
   "bugs": {
     "url": "https://github.com/DAVFoundation/community/issues"
   },
+  "homepage": "https://github.com/DAVFoundation/community#readme",
   "scripts": {
     "build": "node ./node_modules/gulp/bin/gulp.js build",
     "start": "node ./node_modules/gulp/bin/gulp.js run",
